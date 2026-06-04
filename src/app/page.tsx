@@ -12,7 +12,7 @@ export default function Home() {
         className="absolute inset-0 w-full h-full object-cover -z-10"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 px-6 max-w-6xl w-full z-10">
+      <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-12 px-6 max-w-6xl w-full z-10">
 
         {/* Columna Izquierda */}
         <div className="flex flex-col justify-center gap-4 mt-16">
@@ -20,7 +20,7 @@ export default function Home() {
           {/* Nombre */}
           <div>
             <h1 className="text-7xl text-white leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Enzo</h1>
-            <h1 className="text-7xl text-[#FF5C00] leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Fernandez</h1>
+            <h1 className="text-[6rem] text-[#FF5C00] leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Fernandez</h1>
           </div>
 
           {/* Subtítulo */}
@@ -29,7 +29,7 @@ export default function Home() {
           </p>
 
           {/* Descripción */}
-          <p className="text-gray-300 text-sm leading-relaxed max-w-md">
+          <p className="text-gray-300 text-base leading-relaxed max-w-xl" style={{ fontFamily: 'var(--font-barlow)' }}>
             Transformo ideas en aplicaciones web modernas, escalables y eficientes. 
             Me apasiona crear soluciones que generen impacto real a través de la tecnología.
           </p>
@@ -37,11 +37,13 @@ export default function Home() {
           {/* Botones */}
           <div className="flex gap-4 mt-2">
             <a href="/proyectos"
-              className="bg-[#FF5C00] hover:bg-[#e05200] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors">
+              className="bg-[#FF5C00] hover:bg-[#e05200] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+              style={{ fontFamily: 'var(--font-barlow)' }}>
               Ver mis proyectos <ArrowRight size={18} />
             </a>
             <a href="/contacto"
-              className="border border-white/40 hover:border-white text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors">
+              className="border border-white/40 hover:border-white text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+              style={{ fontFamily: 'var(--font-barlow)' }}>
               Contactar <Send size={16} />
             </a>
           </div>
