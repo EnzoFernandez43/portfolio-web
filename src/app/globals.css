@@ -1,15 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
-  --background: #0f172a; /* Slate 950 */
+  --background: #0f172a;
   --foreground: #ffffff;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  /* Esto nos da el toque "Apple/Modern" */
-  font-family: sans-serif; 
+  font-family: sans-serif;
 }

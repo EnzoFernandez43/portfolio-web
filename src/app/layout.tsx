@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar"; // Importamos tu Navbar
+import ScrollbarProvider from '@/components/ScrollbarProvider';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +32,11 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Navbar /> {/* Inyectamos la navegación arriba de todo */}
-        <main className="flex-grow">
-          {children}
-        </main>
+        <ScrollbarProvider>
+          <main className="flex-grow">
+            {children}
+          </main>
+        </ScrollbarProvider>
       </body>
     </html>
   );
