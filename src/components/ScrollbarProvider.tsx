@@ -8,7 +8,7 @@ export default function ScrollbarProvider({ children }: { children: React.ReactN
     <OverlayScrollbarsComponent
       element="div"
       style={{ height: '100vh', width: '100%' }}
-      options={{ scrollbars: { autoHide: 'scroll' } }}
+      options={{ scrollbars: { autoHide: 'scroll', theme: 'os-theme-light' } }}
       defer
     >
       {children}

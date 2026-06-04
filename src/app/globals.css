@@ -10,3 +10,9 @@ body {
   color: var(--foreground);
   font-family: sans-serif;
 }
+
+.os-theme-custom {
+  --os-handle-bg: #FF5C00;
+  --os-handle-bg-hover: #e05200;
+  --os-handle-bg-active: #c94a00;
+}
