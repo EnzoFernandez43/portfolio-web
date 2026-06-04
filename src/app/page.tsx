@@ -29,7 +29,7 @@ export default function Home() {
           </p>
 
           {/* Descripción */}
-          <p className="text-gray-300 text-base leading-relaxed max-w-xl" style={{ fontFamily: 'var(--font-barlow)' }}>
+          <p className="text-gray-300 text-lg leading-relaxed max-w-xl" style={{ fontFamily: 'var(--font-barlow)' }}>
             Transformo ideas en aplicaciones web modernas, escalables y eficientes. 
             Me apasiona crear soluciones que generen impacto real a través de la tecnología.
           </p>
