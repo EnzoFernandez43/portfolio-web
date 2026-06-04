@@ -1,8 +1,11 @@
-import ProyectosSection from '@/components/ProyectosSection';
+import ProyectosSection from '@/components/proyectos/ProyectosSection';
 
-export default function ProyectosPage() {
+export default function Page() {
   return (
-    <main className="pt-24"> {/* pt-24 para que no se pegue a la navbar */}
+    <main
+      className="min-h-screen pt-20"
+      style={{ backgroundImage: "url('/fondoPantallaProyectos.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundColor: 'black' }}
+    >
       <ProyectosSection />
     </main>
   );
