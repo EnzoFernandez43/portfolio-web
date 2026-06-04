@@ -5,7 +5,7 @@ export default function Home() {
       <img
         src="/fondoDePantalla.png"
         alt=""
-        className="absolute inset-0 w-full h-full object-contain -z-10 scale-90"
+        className="absolute inset-0 w-full h-full object-cover -z-10"
       />
 
       {/* Círculo de Neón de Fondo (Glow Effect) */}
