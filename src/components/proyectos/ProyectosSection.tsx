@@ -71,7 +71,7 @@ export default function ProyectosSection() {
   return (
     <section className="py-20 px-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+      <div className="flex flex-col md:flex-row md:items-start justify-between mb-10 gap-6">
         <div>
           <h2 className="text-5xl font-black text-white uppercase">
             MIS <span className="text-[#FF5C00]">PROYECTOS</span>
@@ -82,7 +82,7 @@ export default function ProyectosSection() {
           </p>
         </div>
         {/* Filtros */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 pt-2">
           {categorias.map(cat => (
             <button
               key={cat}

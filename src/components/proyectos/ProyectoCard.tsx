@@ -16,9 +16,9 @@ interface CardProps {
 
 export default function ProyectoCard({ title, subtitle, description, image, techIcons, githubLink, projectLink, highlight }: CardProps) {
   return (
-    <div className={`p-5 rounded-2xl bg-[#0c0d11] border ${highlight ? 'border-[#FF5C00]' : 'border-[#1f2026]'} transition-all hover:scale-[1.02] duration-300`}>
+    <div className={`p-5 rounded-2xl bg-[#0c0d11] border ${highlight ? 'border-[#FF5C00]' : 'border-[#1f2026]'} hover:border-[#FF5C00] transition-all duration-300`}>
       <div className="flex gap-4">
-        <div className="w-2/5 aspect-video bg-gray-800 rounded-lg overflow-hidden shrink-0">
+        <div className="w-[45%] h-36 bg-gray-800 rounded-lg overflow-hidden shrink-0">
           <img src={image} alt={title} className="w-full h-full object-cover" />
         </div>
         <div className="flex flex-col flex-1">
