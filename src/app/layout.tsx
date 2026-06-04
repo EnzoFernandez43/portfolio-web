@@ -30,10 +30,10 @@ export default function RootLayout({
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col overflow-hidden">
+      <body className="min-h-full flex flex-col">
+        <Navbar /> {/* Inyectamos la navegación arriba de todo */}
         <ScrollbarProvider>
-          <Navbar />
-          <main className="flex-grow">
+          <main className="flex-grow h-full">
             {children}
           </main>
         </ScrollbarProvider>
