@@ -1,6 +1,7 @@
 import { ArrowRight, Send } from 'lucide-react';
 import { FaReact, FaNodeJs, FaDocker, FaDatabase } from 'react-icons/fa';
 import { SiNextdotjs, SiTypescript } from 'react-icons/si';
+import CodeCard from '@/components/CodeCard';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         alt=""
         className="absolute inset-0 w-full h-full object-cover -z-10"
       />
+      <CodeCard />
 
       <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-12 px-6 max-w-6xl w-full z-10">
 
