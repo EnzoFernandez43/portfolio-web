@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 export default function Navbar() {
     return (
-        <nav className="sticky top-0 z-50 w-full bg-[#0a0a0a]/90 backdrop-blur-md">
+        <nav className="fixed top-0 z-50 w-full bg-transparent">
             <div className="w-full px-8 md:px-16 h-[72px] flex items-center justify-between relative">
 
                 {/* Logo */}
