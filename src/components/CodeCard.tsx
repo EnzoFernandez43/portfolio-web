@@ -48,50 +48,59 @@ export default function CodeCard() {
 
   return (
     <div
-      className="absolute top-[12%] right-[3%] w-[260px] p-7 rounded-2xl flex flex-col gap-5 cursor-pointer"
-      style={{
-        background: 'rgba(12, 8, 4, 0.55)',
-        backdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255, 92, 0, 0.25)',
-        boxShadow: hovered
-          ? '0 0 40px rgba(255,92,0,0.25), 0 0 80px rgba(255,92,0,0.1), inset 0 1px 0 rgba(255,255,255,0.08), -6px 0 20px rgba(255,92,0,0.15)'
-          : '0 0 25px rgba(255,92,0,0.15), 0 0 60px rgba(255,92,0,0.07), inset 0 1px 0 rgba(255,255,255,0.05), -4px 0 15px rgba(255,92,0,0.1)',
-        transform: visible
-          ? hovered
-            ? 'perspective(800px) rotateY(-6deg) rotateX(2deg) scale(1.03)'
-            : 'perspective(800px) rotateY(-20deg) rotateX(5deg)'
-          : 'perspective(800px) rotateY(-20deg) rotateX(5deg) translateY(-30px)',
-        opacity: visible ? 1 : 0,
-        transition: 'transform 0.5s ease, box-shadow 0.4s ease, opacity 0.6s ease',
-      }}
+      className="absolute top-[12%] right-[3%] z-20" // Added z-20 here
+      style={{ width: '320px', height: '260px' }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Borde izquierdo con glow naranja */}
-      <div className="absolute left-0 top-4 bottom-4 w-[2px] rounded-full"
-        style={{ background: 'linear-gradient(to bottom, transparent, rgba(255,92,0,0.6), transparent)' }}
-      />
+      {/* Overlay invisible que captura el hover en área rectangular */}
+      <div className="absolute inset-0 z-10" />
+      
+      {/* Card visual */}
+      <div
+        className="absolute top-0 right-0 w-[260px] h-full p-7 rounded-2xl flex flex-col gap-5"
+        style={{
+          background: 'rgba(12, 8, 4, 0.55)',
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 92, 0, 0.25)',
+          boxShadow: hovered
+            ? '0 0 40px rgba(255,92,0,0.25), 0 0 80px rgba(255,92,0,0.1), inset 0 1px 0 rgba(255,255,255,0.08), -6px 0 20px rgba(255,92,0,0.15)'
+            : '0 0 25px rgba(255,92,0,0.15), 0 0 60px rgba(255,92,0,0.07), inset 0 1px 0 rgba(255,255,255,0.05), -4px 0 15px rgba(255,92,0,0.1)',
+          transform: visible
+            ? hovered
+              ? 'perspective(800px) rotateY(-6deg) rotateX(2deg) scale(1.03)'
+              : 'perspective(800px) rotateY(-20deg) rotateX(5deg)'
+            : 'perspective(800px) rotateY(-20deg) rotateX(5deg) translateY(-30px)',
+          opacity: visible ? 1 : 0,
+          transition: 'transform 0.5s ease, box-shadow 0.4s ease, opacity 0.6s ease',
+        }}
+      >
+        {/* Borde izquierdo con glow naranja */}
+        <div className="absolute left-0 top-4 bottom-4 w-[2px] rounded-full"
+          style={{ background: 'linear-gradient(to bottom, transparent, rgba(255,92,0,0.6), transparent)' }}
+        />
 
-      {/* Ícono */}
-      <div className="text-[#FF5C00] text-3xl font-black" style={{ fontFamily: 'monospace' }}>
-        {'</>'}
+        {/* Ícono */}
+        <div className="text-[#FF5C00] text-3xl font-black" style={{ fontFamily: 'monospace' }}>
+          {'</>'}
+        </div>
+
+        {/* Líneas */}
+        <div className="flex flex-col gap-3">
+          {displayed.map((line, i) => (
+            <div key={i} className="text-white text-base font-medium min-h-[24px]"
+              style={{ fontFamily: 'var(--font-montserrat)' }}>
+              {line}
+              {typing && currentLine === i && currentChar < lines[i].length && (
+                <span className="animate-pulse text-[#FF5C00]">|</span>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Barra naranja */}
+        <div className="w-10 h-[3px] bg-[#FF5C00] rounded-full mt-1" />
       </div>
-
-      {/* Líneas */}
-      <div className="flex flex-col gap-3">
-        {displayed.map((line, i) => (
-          <div key={i} className="text-white text-base font-medium min-h-[24px]"
-            style={{ fontFamily: 'var(--font-montserrat)' }}>
-            {line}
-            {typing && currentLine === i && currentChar < lines[i].length && (
-              <span className="animate-pulse text-[#FF5C00]">|</span>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Barra naranja */}
-      <div className="w-10 h-[3px] bg-[#FF5C00] rounded-full mt-1" />
     </div>
   );
 }
