@@ -4,9 +4,20 @@ import Link from 'next/link';
 import { Download } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
     const pathname = usePathname();
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+      const handler = (e: Event) => {
+        const detail = (e as CustomEvent).detail;
+        setScrolled(detail.scrollTop > 10);
+      };
+      window.addEventListener('app-scroll', handler);
+      return () => window.removeEventListener('app-scroll', handler);
+    }, []);
 
     const links = [
         { href: '/', label: 'Inicio' },
@@ -16,7 +27,7 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className="fixed top-0 z-50 w-full bg-transparent">
+        <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled ? 'bg-black/40 backdrop-blur-xl border-b border-white/10' : 'bg-transparent'}`}>
             <div className="w-full px-8 md:px-16 h-[72px] flex items-center justify-between relative">
 
                 {/* Logo */}
@@ -45,7 +56,7 @@ export default function Navbar() {
                                 className={`text-base font-medium relative py-2 transition-colors ${active ? 'text-white' : 'text-gray-400 hover:text-white'}`}
                             >
                                 {label}
-                                {active && <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#FF5C00] rounded-full" />}
+                                <span className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] bg-[#FF5C00] rounded-full transition-all duration-300 ${active ? 'w-full' : 'w-0'}`} />
                             </Link>
                         );
                     })}

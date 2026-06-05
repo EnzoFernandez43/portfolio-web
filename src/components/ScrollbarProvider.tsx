@@ -2,8 +2,24 @@
 
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import 'overlayscrollbars/overlayscrollbars.css';
+import { useEffect } from 'react';
 
 export default function ScrollbarProvider({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    // Usamos setTimeout para asegurar que OverlayScrollbars haya inicializado el DOM
+    const t = setTimeout(() => {
+      const el = document.querySelector('[data-overlayscrollbars-viewport]');
+      if (!el) return;
+      const handler = () => {
+        window.dispatchEvent(new CustomEvent('app-scroll', { detail: { scrollTop: el.scrollTop } }));
+      };
+      el.addEventListener('scroll', handler);
+      return () => el.removeEventListener('scroll', handler);
+    }, 500);
+
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <div style={{ position: 'relative', flex: '1 1 0' }}>
       <OverlayScrollbarsComponent

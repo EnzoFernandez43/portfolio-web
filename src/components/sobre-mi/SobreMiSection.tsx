@@ -13,9 +13,6 @@ export default function SobreMiSection() {
 
         {/* Izquierda */}
         <div>
-          <span className="inline-flex items-center gap-2 border border-[#FF5C00] text-[#FF5C00] text-sm px-4 py-1 rounded-full mb-6 mt-8">
-            👋 ¡Hola! Soy
-          </span>
           <h1 className="text-7xl font-black uppercase leading-none mb-4">
             <span className="text-white">ENZO</span><br />
             <span className="text-[#FF5C00]">FERNANDEZ</span>
@@ -49,7 +46,7 @@ export default function SobreMiSection() {
         {/* Derecha */}
         <div className="flex flex-col gap-4">
           {/* ¿Quién soy? */}
-          <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6">
+          <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6 transition-all duration-300 hover:border-[#FF5C00]/50 hover:shadow-[0_0_30px_rgba(255,92,0,0.1)]">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-[#FF5C00]">👤</span>
               <p className="text-white font-bold">¿Quién soy?</p>
@@ -62,7 +59,7 @@ export default function SobreMiSection() {
           </div>
 
           {/* Tiempo libre */}
-          <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6">
+          <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6 transition-all duration-300 hover:border-[#FF5C00]/50 hover:shadow-[0_0_30px_rgba(255,92,0,0.1)]">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-[#FF5C00]">☕</span>
               <p className="text-white font-bold">En mi tiempo libre</p>
@@ -88,7 +85,7 @@ export default function SobreMiSection() {
       <div className="grid grid-cols-[1.4fr_1fr_1fr] gap-4">
 
         {/* Stack tecnológico */}
-        <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6">
+        <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6 transition-all duration-300 hover:border-[#FF5C00]/50 hover:shadow-[0_0_30px_rgba(255,92,0,0.1)]">
           <div className="flex items-center gap-2 mb-6">
             <span className="text-[#FF5C00] font-black">{`</>`}</span>
             <p className="text-white font-bold">Mi stack tecnológico</p>
@@ -113,7 +110,7 @@ export default function SobreMiSection() {
         </div>
 
         {/* Mis valores */}
-        <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6">
+        <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6 transition-all duration-300 hover:border-[#FF5C00]/50 hover:shadow-[0_0_30px_rgba(255,92,0,0.1)]">
           <div className="flex items-center gap-2 mb-4">
             <Star size={16} className="text-[#FF5C00]" fill="#FF5C00" />
             <p className="text-white font-bold">Mis valores</p>
@@ -134,7 +131,7 @@ export default function SobreMiSection() {
         </div>
 
         {/* Stats */}
-        <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6 grid grid-cols-2 gap-4 content-center">
+        <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6 grid grid-cols-2 gap-4 content-center transition-all duration-300 hover:border-[#FF5C00]/50 hover:shadow-[0_0_30px_rgba(255,92,0,0.1)]">
           {[
             { num: '10+', label: 'Proyectos\ncompletados' },
             { num: '5+', label: 'Tecnologías\ndominadas' },
