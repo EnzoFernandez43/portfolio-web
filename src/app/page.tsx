@@ -24,7 +24,7 @@ export default function Home() {
             </div>
             
             <p className="font-semibold text-xl text-white" style={{ fontFamily: 'var(--font-barlow)' }}>
-              Ingeniero en Sistemas | Desarrollador Full-Stack
+              Estudiante de Ingeniería en Sistemas | Desarrollador Full-Stack
             </p>
 
             <p className="text-gray-300 text-lg leading-relaxed max-w-xl" style={{ fontFamily: 'var(--font-barlow)' }}>
@@ -50,15 +50,20 @@ export default function Home() {
               <p className="text-gray-400 text-sm mb-3">Tecnologías principales</p>
               <div className="flex gap-3">
                 {[
-                  { icon: <FaReact size={24} className="text-[#61DAFB]" />, bg: 'bg-black/60' },
-                  { icon: <SiNextdotjs size={24} className="text-white" />, bg: 'bg-white/10' },
-                  { icon: <SiTypescript size={24} className="text-[#3178C6]" />, bg: 'bg-black/60' },
-                  { icon: <FaNodeJs size={24} className="text-[#68A063]" />, bg: 'bg-black/60' },
-                  { icon: <FaDatabase size={24} className="text-[#336791]" />, bg: 'bg-black/60' },
-                  { icon: <FaDocker size={24} className="text-[#2496ED]" />, bg: 'bg-black/60' },
+                  { icon: <FaReact size={24} className="text-[#61DAFB]" />, bg: 'bg-black/60', label: 'React' },
+                  { icon: <SiNextdotjs size={24} className="text-white" />, bg: 'bg-white/10', label: 'Next.js' },
+                  { icon: <SiTypescript size={24} className="text-[#3178C6]" />, bg: 'bg-black/60', label: 'TypeScript' },
+                  { icon: <FaNodeJs size={24} className="text-[#68A063]" />, bg: 'bg-black/60', label: 'Node.js' },
+                  { icon: <FaDatabase size={24} className="text-[#336791]" />, bg: 'bg-black/60', label: 'PostgreSQL' },
+                  { icon: <FaDocker size={24} className="text-[#2496ED]" />, bg: 'bg-black/60', label: 'Docker' },
                 ].map((tech, i) => (
-                  <div key={i} className={`w-12 h-12 rounded-xl ${tech.bg} border border-white/10 flex items-center justify-center`}>
-                    {tech.icon}
+                  <div key={i} className="group flex flex-col items-center gap-1">
+                    <div className={`w-12 h-12 rounded-xl ${tech.bg} border border-white/10 flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-hover:border-[#FF5C00]/50`}>
+                      {tech.icon}
+                    </div>
+                    <span className="text-white/70 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ fontFamily: 'var(--font-barlow)' }}>
+                      {tech.label}
+                    </span>
                   </div>
                 ))}
               </div>
