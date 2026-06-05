@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { Download, X, LogIn } from 'lucide-react';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { createClient } from '@/lib/supabase/client';
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -12,8 +13,11 @@ export default function Navbar() {
     const [modalOpen, setModalOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const clickCountRef = useRef(0);
     const clickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
         const handler = (e: Event) => {
@@ -45,10 +49,22 @@ export default function Navbar() {
         }, 600);
     }, []);
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // lógica de auth después
-        console.log({ email, password });
+        setError('');
+        setLoading(true);
+
+        const supabase = createClient();
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+            setError('Credenciales incorrectas');
+            setLoading(false);
+            return;
+        }
+
+        setModalOpen(false);
+        router.push('/admin');
     };
 
     const links = [
@@ -167,12 +183,17 @@ export default function Navbar() {
                                 />
                             </div>
 
+                            {error && (
+                                <p className="text-red-400 text-xs font-mono text-center -mt-1">{error}</p>
+                            )}
+
                             <button
                                 type="submit"
-                                className="mt-2 bg-[#FF5C00] hover:bg-[#e05200] text-white py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-colors"
+                                disabled={loading}
+                                className="mt-2 bg-[#FF5C00] hover:bg-[#e05200] disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-colors"
                             >
                                 <LogIn size={15} strokeWidth={2.5} />
-                                Ingresar al panel
+                                {loading ? 'Ingresando...' : 'Ingresar al panel'}
                             </button>
                         </form>
 
