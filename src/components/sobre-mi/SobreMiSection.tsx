@@ -17,7 +17,7 @@ export default function SobreMiSection() {
   });
 
   return (
-    <section className="min-h-screen pt-[72px] pb-16 px-6 max-w-6xl mx-auto flex flex-col gap-8">
+    <section className="min-h-screen pt-[112px] pb-16 px-6 max-w-6xl mx-auto flex flex-col gap-8">
 
       {/* BLOQUE 1 — HERO */}
       <div className="grid grid-cols-[1fr_1fr_1fr] gap-8 items-start">

@@ -5,7 +5,7 @@ import { Mail, MapPin, Clock, Send, Zap } from 'lucide-react';
 
 export default function ContactoSection() {
   return (
-    <section className="min-h-screen pt-[72px] pb-16 px-6 max-w-6xl mx-auto">
+    <section className="min-h-screen pt-[112px] pb-16 px-6 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
         {/* COLUMNA IZQUIERDA */}
