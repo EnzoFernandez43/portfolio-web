@@ -34,14 +34,14 @@ export default function Home() {
 
             <div className="flex gap-4 mt-2">
               <a href="/proyectos"
-                className="bg-[#FF5C00] hover:bg-[#e05200] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+                className="group bg-[#FF5C00] hover:bg-[#e05200] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
                 style={{ fontFamily: 'var(--font-barlow)' }}>
-                Ver mis proyectos <ArrowRight size={18} />
+                Ver mis proyectos <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <a href="/contacto"
-                className="border border-white/40 hover:border-white text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+                className="group border border-white/40 hover:border-white text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
                 style={{ fontFamily: 'var(--font-barlow)' }}>
-                Contactar <Send size={16} />
+                Contactar <Send size={16} className="transition-transform duration-300 group-hover:rotate-45" />
               </a>
             </div>
 
