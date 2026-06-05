@@ -1,10 +1,21 @@
 'use client';
 
+import { useState } from 'react';
 import { FaReact, FaNodeJs, FaDocker, FaAws } from 'react-icons/fa';
 import { SiNextdotjs, SiTypescript, SiPostgresql, SiMongodb } from 'react-icons/si';
 import { Calendar, MapPin, Send, CheckCircle, Star } from 'lucide-react';
 
 export default function SobreMiSection() {
+  const [hovered, setHovered] = useState<number | null>(null);
+
+  const cardStyle = (i: number) => ({
+    boxShadow: hovered === i
+      ? '0 0 40px rgba(255,92,0,0.45), 0 0 80px rgba(255,92,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08)'
+      : '0 0 0 transparent',
+    border: hovered === i ? '1px solid rgba(255,92,0,0.6)' : '1px solid #1f2026',
+    transition: 'box-shadow 0.4s ease, border 0.3s ease',
+  });
+
   return (
     <section className="min-h-screen pt-16 pb-16 px-8 md:px-16 max-w-7xl mx-auto flex flex-col gap-8">
 
@@ -46,7 +57,12 @@ export default function SobreMiSection() {
         {/* Derecha */}
         <div className="flex flex-col gap-4">
           {/* ¿Quién soy? */}
-          <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6 transition-all duration-300 hover:border-[#FF5C00]/50 hover:shadow-[0_0_30px_rgba(255,92,0,0.1)]">
+          <div
+            className="bg-[#0c0d11] rounded-2xl p-6"
+            style={cardStyle(0)}
+            onMouseEnter={() => setHovered(0)}
+            onMouseLeave={() => setHovered(null)}
+          >
             <div className="flex items-center gap-2 mb-3">
               <span className="text-[#FF5C00]">👤</span>
               <p className="text-white font-bold">¿Quién soy?</p>
@@ -59,7 +75,12 @@ export default function SobreMiSection() {
           </div>
 
           {/* Tiempo libre */}
-          <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6 transition-all duration-300 hover:border-[#FF5C00]/50 hover:shadow-[0_0_30px_rgba(255,92,0,0.1)]">
+          <div
+            className="bg-[#0c0d11] rounded-2xl p-6"
+            style={cardStyle(1)}
+            onMouseEnter={() => setHovered(1)}
+            onMouseLeave={() => setHovered(null)}
+          >
             <div className="flex items-center gap-2 mb-3">
               <span className="text-[#FF5C00]">☕</span>
               <p className="text-white font-bold">En mi tiempo libre</p>
@@ -85,7 +106,12 @@ export default function SobreMiSection() {
       <div className="grid grid-cols-[1.4fr_1fr_1fr] gap-4">
 
         {/* Stack tecnológico */}
-        <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6 transition-all duration-300 hover:border-[#FF5C00]/50 hover:shadow-[0_0_30px_rgba(255,92,0,0.1)]">
+        <div
+          className="bg-[#0c0d11] rounded-2xl p-6"
+          style={cardStyle(2)}
+          onMouseEnter={() => setHovered(2)}
+          onMouseLeave={() => setHovered(null)}
+        >
           <div className="flex items-center gap-2 mb-6">
             <span className="text-[#FF5C00] font-black">{`</>`}</span>
             <p className="text-white font-bold">Mi stack tecnológico</p>
@@ -110,7 +136,12 @@ export default function SobreMiSection() {
         </div>
 
         {/* Mis valores */}
-        <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6 transition-all duration-300 hover:border-[#FF5C00]/50 hover:shadow-[0_0_30px_rgba(255,92,0,0.1)]">
+        <div
+          className="bg-[#0c0d11] rounded-2xl p-6"
+          style={cardStyle(3)}
+          onMouseEnter={() => setHovered(3)}
+          onMouseLeave={() => setHovered(null)}
+        >
           <div className="flex items-center gap-2 mb-4">
             <Star size={16} className="text-[#FF5C00]" fill="#FF5C00" />
             <p className="text-white font-bold">Mis valores</p>
@@ -131,7 +162,12 @@ export default function SobreMiSection() {
         </div>
 
         {/* Stats */}
-        <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6 grid grid-cols-2 gap-4 content-center transition-all duration-300 hover:border-[#FF5C00]/50 hover:shadow-[0_0_30px_rgba(255,92,0,0.1)]">
+        <div
+          className="bg-[#0c0d11] rounded-2xl p-6 grid grid-cols-2 gap-4 content-center"
+          style={cardStyle(4)}
+          onMouseEnter={() => setHovered(4)}
+          onMouseLeave={() => setHovered(null)}
+        >
           {[
             { num: '10+', label: 'Proyectos\ncompletados' },
             { num: '5+', label: 'Tecnologías\ndominadas' },
