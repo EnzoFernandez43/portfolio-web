@@ -14,7 +14,7 @@ export default function ProyectosSection() {
       title: "TaskFlow",
       subtitle: "Gestor de tareas colaborativo",
       description: "Aplicación web para gestión de tareas y proyectos en equipo con tiempo real.",
-      image: "/taskflow.png",
+      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&q=80",
       techIcons: [<FaReact size={22} key="react"/>, <SiTypescript size={22} key="ts"/>, <FaNodeJs size={22} key="node"/>, <SiMongodb size={22} key="mongo"/>],
       githubLink: "#", projectLink: "#", highlight: false,
       categoria: "Full-Stack"
@@ -23,16 +23,16 @@ export default function ProyectosSection() {
       title: "DevStore",
       subtitle: "E-commerce moderno",
       description: "Tienda online con carrito de compras, pagos y panel de administración.",
-      image: "/devstore.png",
+      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80",
       techIcons: [<FaReact size={22} key="react"/>, <SiTypescript size={22} key="ts"/>, <FaNodeJs size={22} key="node"/>, <SiPostgresql size={22} key="pg"/>],
-      githubLink: "#", projectLink: "#", highlight: true,
+      githubLink: "#", projectLink: "#", highlight: false,
       categoria: "Full-Stack"
     },
     {
       title: "Weather API",
       subtitle: "API del clima",
       description: "API REST para consultar el clima actual y pronóstico de cualquier ciudad del mundo.",
-      image: "/weather.png",
+      image: "https://images.unsplash.com/photo-1592210454359-9043f067919b?w=400&q=80",
       techIcons: [<FaNodeJs size={22} key="node"/>, <SiExpress size={22} key="exp"/>, <SiPostgresql size={22} key="pg"/>],
       githubLink: "#", projectLink: "#", highlight: false,
       categoria: "APIs"
@@ -41,7 +41,7 @@ export default function ProyectosSection() {
       title: "Finance Tracker",
       subtitle: "Control de finanzas personales",
       description: "App para registrar ingresos, gastos y visualizar estadísticas financieras.",
-      image: "/finance.png",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80",
       techIcons: [<FaReact size={22} key="react"/>, <SiTypescript size={22} key="ts"/>, <SiFirebase size={22} key="fb"/>],
       githubLink: "#", projectLink: "#", highlight: false,
       categoria: "Web Apps"
@@ -50,7 +50,7 @@ export default function ProyectosSection() {
       title: "Portfolio v1",
       subtitle: "Mi primer portfolio",
       description: "Versión inicial de mi sitio personal, diseñado con HTML, CSS y JS.",
-      image: "/portfolio-v1.png",
+      image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&q=80",
       techIcons: [<FaHtml5 size={22} key="html"/>, <SiCss size={22} key="css"/>, <SiJavascript size={22} key="js"/>],
       githubLink: "#", projectLink: "#", highlight: false,
       categoria: "Frontend"
@@ -59,7 +59,7 @@ export default function ProyectosSection() {
       title: "ChatApp",
       subtitle: "Chat en tiempo real",
       description: "Aplicación de mensajería en tiempo real con salas públicas y privadas.",
-      image: "/chat.png",
+      image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=400&q=80",
       techIcons: [<FaReact size={22} key="react"/>, <FaNodeJs size={22} key="node"/>, <SiSocketdotio size={22} key="io"/>],
       githubLink: "#", projectLink: "#", highlight: false,
       categoria: "Full-Stack"
