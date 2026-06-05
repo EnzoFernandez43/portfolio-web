@@ -51,7 +51,7 @@ export default function Home() {
               <div className="flex gap-3">
                 {[
                   { icon: <FaReact size={24} className="text-[#61DAFB]" />, bg: 'bg-black/60', label: 'React' },
-                  { icon: <SiNextdotjs size={24} className="text-white" />, bg: 'bg-white/10', label: 'Next.js' },
+                  { icon: <SiNextdotjs size={24} className="text-white" />, bg: 'bg-black/60', label: 'Next.js' },
                   { icon: <SiTypescript size={24} className="text-[#3178C6]" />, bg: 'bg-black/60', label: 'TypeScript' },
                   { icon: <FaNodeJs size={24} className="text-[#68A063]" />, bg: 'bg-black/60', label: 'Node.js' },
                   { icon: <FaDatabase size={24} className="text-[#336791]" />, bg: 'bg-black/60', label: 'PostgreSQL' },

@@ -69,7 +69,7 @@ export default function ProyectosSection() {
   const filtrados = filtro === 'Todos' ? proyectos : proyectos.filter(p => p.categoria === filtro);
 
   return (
-    <section className="py-20 px-6 max-w-6xl mx-auto">
+    <section className="pt-10 pb-20 px-6 max-w-6xl mx-auto">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-start justify-between mb-10 gap-6">
         <div>
