@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 export default function ScrollbarProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const t = setTimeout(() => {
-      const el = document.querySelector('[data-overlayscrollbars-viewport]');
+      const el = document.querySelector('[data-overlayscrollbars-viewport]') as HTMLElement;
       if (!el) return;
 
       const handler = () => {
