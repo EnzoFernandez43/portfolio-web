@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { ArrowRight } from 'lucide-react';
 
@@ -15,8 +16,21 @@ interface CardProps {
 }
 
 export default function ProyectoCard({ title, subtitle, description, image, techIcons, githubLink, projectLink, highlight }: CardProps) {
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <div className={`p-5 rounded-2xl bg-[#0c0d11] border ${highlight ? 'border-[#FF5C00]' : 'border-[#1f2026]'} hover:border-[#FF5C00] transition-all duration-300`}>
+    <div
+      className={`p-5 rounded-2xl bg-[#0c0d11] border ${highlight ? 'border-[#FF5C00]' : 'border-[#1f2026]'} transition-all duration-300`}
+      style={{
+        boxShadow: hovered
+          ? '0 0 40px rgba(255,92,0,0.45), 0 0 80px rgba(255,92,0,0.2), inset 0 1px 0 rgba(255,255,255,0.08)'
+          : '0 0 0 transparent',
+        border: hovered ? '1px solid rgba(255,92,0,0.6)' : undefined,
+        transition: 'box-shadow 0.4s ease, border 0.3s ease',
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       <div className="flex gap-4">
         <div className="w-[45%] h-36 bg-gray-800 rounded-lg overflow-hidden shrink-0">
           <img src={image} alt={title} className="w-full h-full object-cover" />
