@@ -10,12 +10,12 @@ export default function ContactoSection() {
 
         {/* COLUMNA IZQUIERDA */}
         <div>
-          <h1 className="text-6xl font-black uppercase leading-none">
+          <h1 className="text-6xl font-black uppercase leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>
             <span className="text-white">HABLEMOS</span><br />
             <span className="text-[#FF5C00]">DE TU PROYECTO</span>
           </h1>
           <div className="w-12 h-1 bg-[#FF5C00] mt-4 mb-6" />
-          <p className="text-gray-400 text-base leading-relaxed mb-10 max-w-sm">
+          <p className="text-gray-400 text-base leading-relaxed mb-10 max-w-sm" style={{ fontFamily: 'var(--font-barlow)' }}>
             ¿Tienes una idea, proyecto o simplemente quieres saludar? Estoy siempre abierto a nuevas oportunidades y colaboraciones emocionantes.
           </p>
 

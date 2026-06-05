@@ -24,11 +24,11 @@ export default function SobreMiSection() {
 
         {/* Izquierda */}
         <div>
-          <h1 className="text-7xl font-black uppercase leading-none mb-4">
+          <h1 className="text-7xl font-black uppercase leading-none mb-4" style={{ fontFamily: 'var(--font-bebas)' }}>
             <span className="text-white">ENZO</span><br />
             <span className="text-[#FF5C00]">FERNANDEZ</span>
           </h1>
-          <p className="text-gray-400 text-base leading-relaxed mb-8 max-w-xs">
+          <p className="text-gray-400 text-base leading-relaxed mb-8 max-w-xs" style={{ fontFamily: 'var(--font-barlow)' }}>
             Desarrollador Full-Stack con pasión por crear soluciones digitales que generan impacto real.
           </p>
 
