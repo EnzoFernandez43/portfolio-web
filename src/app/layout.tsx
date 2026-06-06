@@ -3,6 +3,7 @@ import { Bebas_Neue, DM_Mono, Barlow_Condensed, Montserrat } from "next/font/goo
 import "./globals.css";
 import Navbar from "@/components/Navbar"; // Importamos tu Navbar
 import ScrollbarProvider from '@/components/ScrollbarProvider';
+import { AuthProvider } from '@/context/AuthContext';
 
 const bebasNeue = Bebas_Neue({
   variable: "--font-bebas",
@@ -45,12 +46,14 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${dmMono.variable} ${barlowCondensed.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col text-[110%]" style={{ fontFamily: 'var(--font-dm-mono)' }}>
-        <Navbar /> {/* Inyectamos la navegación arriba de todo */}
-        <ScrollbarProvider>
-          <main className="flex-grow h-full">
-            {children}
-          </main>
-        </ScrollbarProvider>
+        <AuthProvider>
+          <Navbar />
+          <ScrollbarProvider>
+            <main className="flex-grow h-full">
+              {children}
+            </main>
+          </ScrollbarProvider>
+        </AuthProvider>
       </body>
     </html>
   );

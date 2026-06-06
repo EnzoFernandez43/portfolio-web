@@ -6,6 +6,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { useAuth } from '@/context/AuthContext'; // Import useAuth
 
 export default function Navbar() {
     const pathname = usePathname();
@@ -15,9 +16,17 @@ export default function Navbar() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [toast, setToast] = useState('');
+
     const clickCountRef = useRef(0);
     const clickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const router = useRouter();
+    const { isAdmin } = useAuth(); // Get isAdmin from useAuth
+
+    const showToast = (msg: string) => {
+        setToast(msg);
+        setTimeout(() => setToast(''), 3000);
+    };
 
     useEffect(() => {
         const handler = (e: Event) => {
@@ -64,7 +73,16 @@ export default function Navbar() {
         }
 
         setModalOpen(false);
-        router.push('/admin');
+        setEmail('');
+        setPassword('');
+        showToast('✓ Modo admin activado');
+        setLoading(false);
+    };
+
+    const handleLogout = async () => {
+        const supabase = createClient();
+        await supabase.auth.signOut();
+        showToast('Sesión cerrada');
     };
 
     const links = [
@@ -126,6 +144,12 @@ export default function Navbar() {
                             Descargar CV
                             <Download size={16} strokeWidth={2.5} />
                         </button>
+                        {isAdmin && (
+                            <button onClick={handleLogout}
+                                className="text-gray-400 hover:text-white text-xs font-mono border border-white/10 hover:border-white/30 px-3 py-1.5 rounded-full transition-all">
+                                Salir del admin
+                            </button>
+                        )}
                     </div>
 
                 </div>
@@ -202,6 +226,13 @@ export default function Navbar() {
                             {'// solo vos sabés que esto existe'}
                         </p>
                     </div>
+                </div>
+            )}
+            {toast && (
+                <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] bg-[#0d0d0d] border border-[#FF5C00]/40 text-white text-sm font-mono px-5 py-3 rounded-full shadow-2xl"
+                    style={{ boxShadow: '0 0 30px rgba(255,92,0,0.2)' }}>
+                    <span className="text-[#FF5C00] mr-2">✓</span>
+                    Modo admin activado
                 </div>
             )}
         </>
