@@ -36,7 +36,7 @@ interface Block {
   // single image
   url?: string;
   caption?: string;
-  imageAlign?: 'left' | 'center' | 'right' | 'full';
+  imageAlign?: 'izquierda' | 'centro' | 'derecha' | 'completo' | 'flotante-izq' | 'flotante-der';
   // image grid
   images?: GridImage[];
 }
@@ -54,7 +54,7 @@ function uid() {
 }
 
 function emptyBlock(type: BlockType = 'paragraph'): Block {
-  if (type === 'image') return { id: uid(), type, url: '', caption: '', imageAlign: 'center' };
+  if (type === 'image') return { id: uid(), type, url: '', caption: '', imageAlign: 'centro' };
   if (type === 'image-grid') return { id: uid(), type, images: [] };
   if (type === 'divider') return { id: uid(), type };
   return { id: uid(), type, html: '', align: 'left' };
@@ -91,6 +91,8 @@ function InlineToolbar({ onCmd }: { onCmd: (cmd: string, val?: string) => void }
         { icon: <Bold size={12} />, cmd: 'bold' },
         { icon: <Italic size={12} />, cmd: 'italic' },
         { icon: <Underline size={12} />, cmd: 'underline' },
+        { icon: <List size={12} />, cmd: 'insertUnorderedList' },
+        { icon: <ListOrdered size={12} />, cmd: 'insertOrderedList' },
       ].map(({ icon, cmd }) => (
         <button
           key={cmd}
@@ -178,20 +180,29 @@ function ImageBlock({
     setUploading(false);
   };
 
-  const alignClass = {
-    left: 'mr-auto',
-    center: 'mx-auto',
-    right: 'ml-auto',
-    full: 'w-full',
-  }[block.imageAlign ?? 'center'];
+  const alignClass: Record<string, string> = {
+    'izquierda':    'mr-auto',
+    'centro':       'mx-auto',
+    'derecha':      'ml-auto',
+    'completo':     'w-full',
+    'flotante-izq': 'float-left mr-4 mb-2',
+    'flotante-der': 'float-right ml-4 mb-2',
+  };
 
-  const sizeClass = block.imageAlign === 'full' ? 'w-full' : 'max-w-lg';
+  const sizeClass: Record<string, string> = {
+    'completo':     'w-full',
+    'flotante-izq': 'w-1/2',
+    'flotante-der': 'w-1/2',
+  };
+
+  const ac = alignClass[block.imageAlign ?? 'centro'] ?? alignClass['centro'];
+  const sc = sizeClass[block.imageAlign ?? 'centro'] ?? 'max-w-lg';
 
   return (
     <div className="flex flex-col gap-2">
       {/* Align controls */}
-      <div className="flex gap-1">
-        {(['left', 'center', 'right', 'full'] as const).map(a => (
+      <div className="flex gap-1 flex-wrap">
+        {(['izquierda', 'centro', 'derecha', 'flotante-izq', 'flotante-der', 'completo'] as const).map(a => (
           <button
             key={a}
             type="button"
@@ -208,7 +219,7 @@ function ImageBlock({
       </div>
 
       {block.url ? (
-        <div className={`${sizeClass} ${alignClass} relative group`}>
+        <div className={`${sc} ${ac} relative group`}>
           <img src={block.url} alt={block.caption} className="rounded-xl w-full object-cover" />
           <button
             type="button"
@@ -379,12 +390,12 @@ const TEXT_TAG: Record<string, string> = {
 };
 
 const TEXT_CLASS: Record<string, string> = {
-  paragraph: 'text-gray-300 text-sm leading-relaxed',
-  h1: 'text-3xl font-black text-white',
-  h2: 'text-2xl font-bold text-white',
-  h3: 'text-lg font-semibold text-white',
-  quote: 'text-gray-400 italic border-l-2 border-[#FF5C00] pl-4 text-sm leading-relaxed',
-  code: 'font-mono text-xs text-green-400 bg-black rounded-xl p-4 leading-relaxed',
+  paragraph: 'text-gray-300 text-sm leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5',
+  h1: 'text-3xl font-black text-white [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5',
+  h2: 'text-2xl font-bold text-white [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5',
+  h3: 'text-lg font-semibold text-white [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5',
+  quote: 'text-gray-400 italic border-l-2 border-[#FF5C00] pl-4 text-sm leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5',
+  code: 'font-mono text-xs text-green-400 bg-black rounded-xl p-4 leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5',
 };
 
 const PLACEHOLDER: Record<string, string> = {
@@ -538,7 +549,7 @@ export default function ProyectoEditor({ value, onChange, uploadFn }: ProyectoEd
             onDragOver={e => { e.preventDefault(); setDragOverId(block.id); }}
             onDrop={() => handleDrop(block.id)}
             onDragEnd={() => { setDragId(null); setDragOverId(null); }}
-            className={`group relative flex gap-2 items-start py-1 px-1 rounded-xl transition-all
+            className={`group relative flex gap-2 items-start py-1 px-1 rounded-xl transition-all clear-both
               ${dragOverId === block.id ? 'border-t-2 border-[#FF5C00]' : ''}
               ${dragId === block.id ? 'opacity-40' : ''}
             `}
@@ -666,7 +677,7 @@ export default function ProyectoEditor({ value, onChange, uploadFn }: ProyectoEd
       })}
 
       {/* Add block button (bottom) */}
-      <div className="relative mt-2 flex items-center gap-3">
+      <div className="relative mt-2 flex items-center gap-3 clear-both">
         <button
           type="button"
           onClick={() => {
