@@ -59,7 +59,7 @@ export default function ProyectosSection({ proyectos: initial }: { proyectos: Pr
             image={p.imagen_url}
             techIcons={p.tecnologias?.map(t => getTechIcon(t))}
             githubLink={p.github_url}
-            projectLink={p.demo_url}
+            projectLink={`/detalleproyecto/${p.id}`}
             highlight={p.destacado}
             onDelete={() => handleDelete(p.id)}
           />
