@@ -50,3 +50,14 @@ export async function deleteProyecto(id: string) {
     revalidatePath('/proyectos');
     revalidatePath('/admin');
 }
+
+export async function getProyectoById(id: string) {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+        .from('proyectos')
+        .select('*')
+        .eq('id', id)
+        .single();
+    if (error) throw error;
+    return data as Proyecto;
+}
