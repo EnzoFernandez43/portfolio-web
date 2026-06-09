@@ -4,9 +4,10 @@ import { useState } from 'react';
 import { FaGithub } from 'react-icons/fa';
 import { ArrowRight, Pencil, Trash2 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 interface CardProps {
-  id?: string;
+  id: string;
   title: string;
   subtitle: string;
   description: string;
@@ -15,13 +16,13 @@ interface CardProps {
   githubLink: string;
   projectLink: string;
   highlight?: boolean;
-  onEdit?: () => void;
   onDelete?: () => void;
 }
 
-export default function ProyectoCard({ id, title, subtitle, description, image, techIcons, githubLink, projectLink, highlight, onEdit, onDelete }: CardProps) {
+export default function ProyectoCard({ id, title, subtitle, description, image, techIcons, githubLink, projectLink, highlight, onDelete }: CardProps) {
   const [hovered, setHovered] = useState(false);
   const { isAdmin } = useAuth();
+  const router = useRouter();
 
   return (
     <div
@@ -37,7 +38,7 @@ export default function ProyectoCard({ id, title, subtitle, description, image, 
       {/* Botones admin */}
       {isAdmin && (
         <div className="absolute top-3 right-3 flex gap-1.5 z-10">
-          <button onClick={onEdit}
+          <button onClick={() => router.push(`/proyectos/${id}/editar`)}
             className="w-7 h-7 rounded-lg bg-black/60 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-white/30 transition-all backdrop-blur-sm">
             <Pencil size={12} />
           </button>
