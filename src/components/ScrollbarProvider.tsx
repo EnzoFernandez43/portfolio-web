@@ -15,32 +15,8 @@ export default function ScrollbarProvider({ children }: { children: React.ReactN
       };
       el.addEventListener('scroll', handler);
 
-      const routes = ['/', '/proyectos', '/sobre-mi', '/contacto'];
-      let isNavigating = false;
-
-      const wheelHandler = (e: WheelEvent) => {
-        const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 10;
-        const atTop = el.scrollTop <= 10;
-
-        const currentPath = window.location.pathname;
-        const currentIndex = routes.indexOf(currentPath);
-
-        if (isNavigating) return;
-
-        if (e.deltaY > 0 && atBottom && currentIndex < routes.length - 1) {
-          isNavigating = true;
-          window.location.href = routes[currentIndex + 1];
-        } else if (e.deltaY < 0 && atTop && currentIndex > 0) {
-          isNavigating = true;
-          window.location.href = routes[currentIndex - 1];
-        }
-      };
-
-      el.addEventListener('wheel', wheelHandler, { passive: true });
-
       return () => {
         el.removeEventListener('scroll', handler);
-        el.removeEventListener('wheel', wheelHandler);
       };
     }, 500);
 
