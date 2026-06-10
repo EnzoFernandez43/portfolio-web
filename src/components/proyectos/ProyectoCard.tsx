@@ -19,6 +19,8 @@ interface CardProps {
   onDelete?: () => void;
 }
 
+const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').trim();
+
 export default function ProyectoCard({ id, title, subtitle, description, image, techIcons, githubLink, projectLink, highlight, onDelete }: CardProps) {
   const [hovered, setHovered] = useState(false);
   const { isAdmin } = useAuth();
@@ -56,12 +58,27 @@ export default function ProyectoCard({ id, title, subtitle, description, image, 
       <div className="flex flex-col flex-1 min-h-0">
         <h3 className="text-base font-bold text-white leading-tight line-clamp-1">{title}</h3>
         <span className="text-[#FF5C00] font-semibold text-xs mt-0.5 mb-2 line-clamp-1">{subtitle}</span>
-        <p className="text-gray-400 text-xs leading-relaxed line-clamp-2 flex-1">{description}</p>
-        <div className="flex gap-3 pt-3">
-          {techIcons.map((icon, i) => (
-            <div key={i} className="text-gray-400 hover:text-white transition-colors">{icon}</div>
-          ))}
-        </div>
+        <p className="text-gray-400 text-xs leading-relaxed line-clamp-2 flex-1">
+          {stripHtml(description)}
+        </p>
+        {/* Iconos con límite y +n */}
+        {(() => {
+          const MAX = 6;
+          const visible = techIcons.slice(0, MAX);
+          const extra = techIcons.length - MAX;
+          return (
+            <div className="flex items-center gap-2 pt-3 flex-wrap">
+              {visible.map((icon, i) => (
+                <div key={i} className="w-6 h-6 text-gray-400 hover:text-white transition-colors shrink-0 [&>svg]:w-full [&>svg]:h-full">
+                  {icon}
+                </div>
+              ))}
+              {extra > 0 && (
+                <span className="text-[10px] text-gray-500 font-mono shrink-0">+{extra}</span>
+              )}
+            </div>
+          );
+        })()}
       </div>
 
       <div className="flex justify-between items-center mt-4 pt-4 border-t border-[#1f2026] shrink-0">
