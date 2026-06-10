@@ -43,45 +43,39 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
 
       <div className="w-full h-px bg-gradient-to-r from-transparent via-[#FF5C00]/40 to-transparent" />
 
-      {/* ── Title and Badges ── */}
+      {/* ── Title, Badges + contenido principal ── */}
       <div className="max-w-6xl mx-auto px-6 pt-8 pb-4">
-        {/* Badges */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {proyecto.destacado && (
-            <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5C00] text-white text-xs font-bold uppercase tracking-wide">
-              <Star size={10} fill="white" /> Destacado
-            </span>
-          )}
-          {(proyecto.categoria ?? []).map(cat => (
-            <span key={cat} className="px-3 py-1 rounded-full border border-[#FF5C00]/50 text-[#FF5C00] text-xs font-semibold">
-              {cat}
-            </span>
-          ))}
-        </div>
-
-        <h1
-          className="text-5xl md:text-7xl font-black text-white uppercase mb-3 leading-none"
-          style={{ fontFamily: 'var(--font-bebas)' }}
-        >
-          {proyecto.titulo}
-        </h1>
-
-        {/* Línea naranja de acento */}
-        <div className="w-12 h-[3px] bg-[#FF5C00] rounded-full mb-3" />
-
-        {proyecto.subtitulo && (
-          <p className="text-[#FF7A30] text-base font-medium max-w-xl leading-relaxed">
-            {proyecto.subtitulo}
-          </p>
-        )}
-      </div>
-
-      {/* ── Main content ── */}
-      <div className="max-w-6xl mx-auto px-6 py-12">
         <div className="flex flex-col lg:flex-row gap-10">
 
-          {/* ── Content left ── */}
+          {/* ── Columna izquierda: título + contenido ── */}
           <div className="flex-1 min-w-0">
+
+            {/* Badges */}
+            <div className="flex flex-wrap gap-2 mb-4">
+              {proyecto.destacado && (
+                <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5C00] text-white text-xs font-bold uppercase tracking-wide">
+                  <Star size={10} fill="white" /> Destacado
+                </span>
+              )}
+              {(proyecto.categoria ?? []).map(cat => (
+                <span key={cat} className="px-3 py-1 rounded-full border border-[#FF5C00]/50 text-[#FF5C00] text-xs font-semibold">
+                  {cat}
+                </span>
+              ))}
+            </div>
+
+            <h1
+              className="text-5xl md:text-7xl font-black text-white uppercase mb-3 leading-none"
+              style={{ fontFamily: 'var(--font-bebas)' }}
+            >
+              {proyecto.titulo}
+            </h1>
+            <div className="w-12 h-[3px] bg-[#FF5C00] rounded-full mb-3" />
+            {proyecto.subtitulo && (
+              <p className="text-[#FF7A30] text-base font-medium max-w-xl leading-relaxed mb-12">
+                {proyecto.subtitulo}
+              </p>
+            )}
 
             {/* Descripción rich text */}
             {proyecto.descripcion && (
@@ -117,10 +111,9 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
                 </div>
               </div>
             )}
-
           </div>
 
-          {/* ── Sidebar right ── */}
+          {/* ── Sidebar derecho ── */}
           <div className="lg:w-72 shrink-0 flex flex-col gap-5">
 
             {/* CTA buttons */}
@@ -187,39 +180,6 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
                 </div>
               </div>
             )}
-
-            {/* Info box */}
-            <div className="bg-[#0c0d11] border border-[#1a1b22] rounded-2xl p-5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-gray-500 mb-3">
-                Proyecto
-              </h3>
-              <div className="flex flex-col gap-3">
-                {proyecto.destacado && (
-                  <div className="flex items-center gap-2 text-sm">
-                    <Star size={13} className="text-[#FF5C00]" fill="#FF5C00" />
-                    <span className="text-gray-300">Proyecto destacado</span>
-                  </div>
-                )}
-                {proyecto.demo_url && (
-                  <div className="flex items-start gap-2 text-sm">
-                    <ExternalLink size={13} className="text-gray-500 mt-0.5 shrink-0" />
-                    <a href={proyecto.demo_url} target="_blank" rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-[#FF5C00] transition-colors truncate text-xs">
-                      {proyecto.demo_url.replace(/^https?:\/\//, '')}
-                    </a>
-                  </div>
-                )}
-                {proyecto.github_url && (
-                  <div className="flex items-start gap-2 text-sm">
-                    <GitBranch size={13} className="text-gray-500 mt-0.5 shrink-0" />
-                    <a href={proyecto.github_url} target="_blank" rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-[#FF5C00] transition-colors truncate text-xs">
-                      {proyecto.github_url.replace(/^https?:\/\/github\.com\//, '')}
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
 
           </div>
         </div>
