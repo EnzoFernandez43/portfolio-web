@@ -17,11 +17,20 @@ export default function Navbar() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [toast, setToast] = useState('');
+    const [lightboxOpen, setLightboxOpen] = useState(false);
 
     const clickCountRef = useRef(0);
     const clickTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const router = useRouter();
     const { isAdmin } = useAuth(); // Get isAdmin from useAuth
+
+    useEffect(() => {
+        const observer = new MutationObserver(() => {
+            setLightboxOpen(document.body.hasAttribute('data-lightbox-open'));
+        });
+        observer.observe(document.body, { attributes: true, attributeFilter: ['data-lightbox-open'] });
+        return () => observer.disconnect();
+    }, []);
 
     const showToast = (msg: string) => {
         setToast(msg);
@@ -94,7 +103,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${scrolled ? 'bg-black/40 backdrop-blur-xl border-b border-white/10' : 'bg-transparent border-b border-transparent'}`}>
+            <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${lightboxOpen ? 'opacity-0 pointer-events-none' : ''} ${scrolled ? 'bg-black/40 backdrop-blur-xl border-b border-white/10' : 'bg-transparent border-b border-transparent'}`}>
                 <div className="w-full px-8 md:px-16 h-[72px] flex items-center justify-between relative">
 
                     {/* Logo con botón secreto embebido */}

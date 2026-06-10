@@ -1,10 +1,25 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LuX, LuChevronLeft, LuChevronRight, LuMaximize, LuMinimize, LuPlay } from "react-icons/lu";
-import { LazyImage } from "../../components/LazyImage";
-import { getOptimizedImageUrl } from "../../utils/imageUtils";
-import { useGlobalScrollLock } from "../../hooks/useGlobalScrollLock";
-import { useHardwareBackButton } from "../../hooks/useHardwareBackButton"; // <--- IMPORT
+
+// Reemplaza LazyImage — usa img nativa
+const LazyImage = ({ src, alt, className }: { src: string; alt: string; width?: number; height?: number; className?: string }) => (
+  <img src={src} alt={alt} className={className} loading="lazy" />
+);
+
+// Reemplaza getOptimizedImageUrl — devuelve la url tal cual
+const getOptimizedImageUrl = (url: string, _opts?: object) => url;
+
+// Reemplaza useGlobalScrollLock
+const useGlobalScrollLock = (active: boolean) => {
+  useEffect(() => {
+    if (active) document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, [active]);
+};
+
+// Reemplaza useHardwareBackButton — no-op en web
+const useHardwareBackButton = (_priority: number, _active: boolean, _handler: () => void) => {};
 
 interface ImageLightboxProps {
   images: string[];
@@ -42,6 +57,11 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const lightboxRef = useRef<HTMLDivElement>(null);
   const thumbnailContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    document.body.setAttribute('data-lightbox-open', 'true');
+    return () => document.body.removeAttribute('data-lightbox-open');
+  }, []);
 
   useGlobalScrollLock(true);
 
@@ -159,7 +179,7 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-[100] flex flex-col items-center bg-black/95 backdrop-blur-md"
+      className="fixed inset-0 z-[200] flex flex-col items-center bg-black/95 backdrop-blur-md"
       onClick={() => {
         if (document.fullscreenElement) {
           document.exitFullscreen();

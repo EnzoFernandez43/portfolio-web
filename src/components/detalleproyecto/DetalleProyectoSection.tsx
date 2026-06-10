@@ -1,18 +1,22 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, GitBranch, ExternalLink, Star, Calendar, Tag } from 'lucide-react';
 import { Proyecto } from '@/actions/proyectos';
 import { getTechIcon } from '@/lib/techIcons';
+import { ImageLightbox } from '@/components/ImageLightbox';
 
 export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyecto & { imagenes_muestra?: string[] } }) {
   const router = useRouter();
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const imagenes = proyecto.imagenes_muestra?.filter(Boolean) ?? [];
 
   return (
     <div className="min-h-screen bg-[#050507] text-white" style={{ fontFamily: 'var(--font-barlow)' }}>
 
       {/* ── Hero ── */}
-      <div className="relative w-full h-[480px] md:h-[560px] overflow-hidden">
+      <div className="relative w-full h-[480px] md:h-[560px] overflow-hidden mt-6">
         {/* Background image */}
         {proyecto.imagen_url ? (
           <img
@@ -37,6 +41,8 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
           </div>
         </div>
       </div>
+
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-[#FF5C00]/40 to-transparent" />
 
       {/* ── Title and Badges ── */}
       <div className="max-w-6xl mx-auto px-6 pt-8 pb-4">
@@ -87,7 +93,7 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
             )}
 
             {/* Imágenes de muestra */}
-            {proyecto.imagenes_muestra && proyecto.imagenes_muestra.length > 0 && (
+            {imagenes.length > 0 && (
               <div className="mb-12">
                 <h2
                   className="text-2xl font-black text-white uppercase mb-6"
@@ -96,11 +102,11 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
                   CAPTURAS <span className="text-[#FF5C00]">DEL PROYECTO</span>
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {proyecto.imagenes_muestra.filter(Boolean).map((url, i) => (
+                  {imagenes.map((url, i) => (
                     <div
                       key={i}
                       className="rounded-xl overflow-hidden border border-[#1a1b22] group cursor-pointer"
-                      onClick={() => window.open(url, '_blank')}
+                      onClick={() => setLightboxIndex(i)}
                     >
                       <img
                         src={url}
@@ -238,6 +244,14 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
           </a>
         </div>
       </div>
+
+      {lightboxIndex !== null && (
+        <ImageLightbox
+          images={imagenes}
+          startIndex={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
+      )}
 
       {/* ── Prose styles (scoped) ── */}
       <style jsx global>{`
