@@ -101,6 +101,11 @@ export default function Navbar() {
         { href: '/contacto', label: 'Contacto' },
     ];
 
+    const hiddenRoutes = ['/proyectos/nuevo', '/editar'];
+    const isHidden = hiddenRoutes.some(route => pathname.includes(route));
+
+    if (isHidden) return null;
+
     return (
         <>
             <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${lightboxOpen ? 'opacity-0 pointer-events-none' : ''} ${scrolled ? 'bg-black/40 backdrop-blur-xl border-b border-white/10' : 'bg-transparent border-b border-transparent'}`}>
