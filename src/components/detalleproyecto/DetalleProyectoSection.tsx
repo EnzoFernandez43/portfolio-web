@@ -12,31 +12,35 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
     <div className="min-h-screen bg-[#050507] text-white" style={{ fontFamily: 'var(--font-barlow)' }}>
 
       {/* ── Hero ── */}
-      <div className="relative w-full h-[420px] md:h-[520px] overflow-hidden">
-        {/* Background image con overlay */}
+      <div className="relative w-full h-[480px] md:h-[560px] overflow-hidden">
+        {/* Background image */}
         {proyecto.imagen_url ? (
           <>
             <img
               src={proyecto.imagen_url}
               alt={proyecto.titulo}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover brightness-90"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050507] via-[#050507]/70 to-[#050507]/20" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#050507]/60 to-transparent" />
+            {/* Overlay suave hacia arriba — ya no aplasta toda la imagen */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050507] via-[#050507]/30 to-transparent" />
+            {/* Overlay lateral izquierdo para el texto */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#050507]/50 to-transparent" />
           </>
         ) : (
           <div className="w-full h-full bg-[#0c0d11]" />
         )}
 
-        {/* Back button */}
-        <div className="absolute top-6 left-0 w-full max-w-6xl mx-auto px-6" style={{ left: '50%', transform: 'translateX(-50%)' }}>
-          <button
-            onClick={() => router.push('/proyectos')}
-            className="flex items-center gap-2 text-gray-400 hover:text-[#FF5C00] text-sm transition-colors group"
-          >
-            <ArrowLeft size={15} className="group-hover:-translate-x-0.5 transition-transform" />
-            Volver a proyectos
-          </button>
+        {/* Back button — con padding-top para quedar bajo la navbar */}
+        <div className="absolute top-0 left-0 right-0 px-6 pt-20">
+          <div className="max-w-6xl mx-auto">
+            <button
+              onClick={() => router.push('/proyectos')}
+              className="flex items-center gap-2 text-gray-300 hover:text-[#FF5C00] text-sm transition-colors group bg-black/35 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 w-fit"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
+              Volver a proyectos
+            </button>
+          </div>
         </div>
 
         {/* Hero content */}
@@ -45,26 +49,29 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
             {/* Badges */}
             <div className="flex flex-wrap gap-2 mb-4">
               {proyecto.destacado && (
-                <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5C00] text-white text-xs font-semibold">
+                <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5C00] text-white text-xs font-bold uppercase tracking-wide">
                   <Star size={10} fill="white" /> Destacado
                 </span>
               )}
               {(proyecto.categoria ?? []).map(cat => (
-                <span key={cat} className="px-3 py-1 rounded-full border border-[#FF5C00]/40 text-[#FF5C00] text-xs font-medium">
+                <span key={cat} className="px-3 py-1 rounded-full border border-[#FF5C00]/50 text-[#FF5C00] text-xs font-semibold">
                   {cat}
                 </span>
               ))}
             </div>
 
             <h1
-              className="text-4xl md:text-6xl font-black text-white uppercase mb-3 leading-none"
+              className="text-5xl md:text-7xl font-black text-white uppercase mb-3 leading-none"
               style={{ fontFamily: 'var(--font-bebas)' }}
             >
               {proyecto.titulo}
             </h1>
 
+            {/* Línea naranja de acento */}
+            <div className="w-12 h-[3px] bg-[#FF5C00] rounded-full mb-3" />
+
             {proyecto.subtitulo && (
-              <p className="text-[#FF5C00] text-lg font-medium max-w-2xl leading-relaxed">
+              <p className="text-[#FF7A30] text-base font-medium max-w-xl leading-relaxed">
                 {proyecto.subtitulo}
               </p>
             )}
