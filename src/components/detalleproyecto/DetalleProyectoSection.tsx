@@ -15,9 +15,21 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
   return (
     <div className="min-h-screen bg-[#050507] text-white" style={{ fontFamily: 'var(--font-barlow)' }}>
 
-      {/* ── Hero ── */}
-      <div className="relative w-full h-[480px] md:h-[560px] overflow-hidden mt-6">
-        {/* Background image */}
+      {/* ── Fila 1: Botón volver ── */}
+      <div className="px-6 pt-[88px] pb-4">
+        <div className="max-w-6xl mx-auto">
+          <button
+            onClick={() => router.push('/proyectos')}
+            className="flex items-center gap-2 text-gray-300 hover:text-[#FF5C00] text-sm transition-colors group bg-white/5 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 w-fit"
+          >
+            <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
+            Volver a proyectos
+          </button>
+        </div>
+      </div>
+
+      {/* ── Fila 2: Imagen limpia ── */}
+      <div className="relative w-full h-[480px] md:h-[560px] overflow-hidden">
         {proyecto.imagen_url ? (
           <img
             src={proyecto.imagen_url}
@@ -27,19 +39,6 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
         ) : (
           <div className="w-full h-full bg-[#0c0d11]" />
         )}
-
-        {/* Back button — con padding-top para quedar bajo la navbar */}
-        <div className="absolute top-0 left-0 right-0 px-6 pt-20">
-          <div className="max-w-6xl mx-auto">
-            <button
-              onClick={() => router.push('/proyectos')}
-              className="flex items-center gap-2 text-gray-300 hover:text-[#FF5C00] text-sm transition-colors group bg-black/35 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2 w-fit"
-            >
-              <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
-              Volver a proyectos
-            </button>
-          </div>
-        </div>
       </div>
 
       <div className="w-full h-px bg-gradient-to-r from-transparent via-[#FF5C00]/40 to-transparent" />
