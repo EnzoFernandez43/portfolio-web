@@ -15,17 +15,11 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
       <div className="relative w-full h-[480px] md:h-[560px] overflow-hidden">
         {/* Background image */}
         {proyecto.imagen_url ? (
-          <>
-            <img
-              src={proyecto.imagen_url}
-              alt={proyecto.titulo}
-              className="w-full h-full object-cover brightness-90"
-            />
-            {/* Overlay suave hacia arriba — ya no aplasta toda la imagen */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050507] via-[#050507]/30 to-transparent" />
-            {/* Overlay lateral izquierdo para el texto */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#050507]/50 to-transparent" />
-          </>
+          <img
+            src={proyecto.imagen_url}
+            alt={proyecto.titulo}
+            className="w-full h-full object-cover"
+          />
         ) : (
           <div className="w-full h-full bg-[#0c0d11]" />
         )}
@@ -42,41 +36,39 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Hero content */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <div className="max-w-6xl mx-auto px-6 pb-10">
-            {/* Badges */}
-            <div className="flex flex-wrap gap-2 mb-4">
-              {proyecto.destacado && (
-                <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5C00] text-white text-xs font-bold uppercase tracking-wide">
-                  <Star size={10} fill="white" /> Destacado
-                </span>
-              )}
-              {(proyecto.categoria ?? []).map(cat => (
-                <span key={cat} className="px-3 py-1 rounded-full border border-[#FF5C00]/50 text-[#FF5C00] text-xs font-semibold">
-                  {cat}
-                </span>
-              ))}
-            </div>
-
-            <h1
-              className="text-5xl md:text-7xl font-black text-white uppercase mb-3 leading-none"
-              style={{ fontFamily: 'var(--font-bebas)' }}
-            >
-              {proyecto.titulo}
-            </h1>
-
-            {/* Línea naranja de acento */}
-            <div className="w-12 h-[3px] bg-[#FF5C00] rounded-full mb-3" />
-
-            {proyecto.subtitulo && (
-              <p className="text-[#FF7A30] text-base font-medium max-w-xl leading-relaxed">
-                {proyecto.subtitulo}
-              </p>
-            )}
-          </div>
+      {/* ── Title and Badges ── */}
+      <div className="max-w-6xl mx-auto px-6 pt-8 pb-4">
+        {/* Badges */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {proyecto.destacado && (
+            <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5C00] text-white text-xs font-bold uppercase tracking-wide">
+              <Star size={10} fill="white" /> Destacado
+            </span>
+          )}
+          {(proyecto.categoria ?? []).map(cat => (
+            <span key={cat} className="px-3 py-1 rounded-full border border-[#FF5C00]/50 text-[#FF5C00] text-xs font-semibold">
+              {cat}
+            </span>
+          ))}
         </div>
+
+        <h1
+          className="text-5xl md:text-7xl font-black text-white uppercase mb-3 leading-none"
+          style={{ fontFamily: 'var(--font-bebas)' }}
+        >
+          {proyecto.titulo}
+        </h1>
+
+        {/* Línea naranja de acento */}
+        <div className="w-12 h-[3px] bg-[#FF5C00] rounded-full mb-3" />
+
+        {proyecto.subtitulo && (
+          <p className="text-[#FF7A30] text-base font-medium max-w-xl leading-relaxed">
+            {proyecto.subtitulo}
+          </p>
+        )}
       </div>
 
       {/* ── Main content ── */}
