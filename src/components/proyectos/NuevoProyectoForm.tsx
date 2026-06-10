@@ -119,10 +119,10 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
   const muestraSlots = [...form.imagenes_muestra, ...Array(Math.max(0, 6 - form.imagenes_muestra.length)).fill('')].slice(0, 6);
  
   return (
-    <div className="min-h-screen bg-[#050507] text-white pt-[72px]" style={{ fontFamily: 'var(--font-barlow)' }}>
+    <div className="min-h-screen bg-[#050507] text-white pt-0" style={{ fontFamily: 'var(--font-barlow)' }}>
  
       {/* ── Top bar ── */}
-      <div className="sticky top-[72px] z-40 border-b border-[#1a1b22] bg-[#050507]/95 backdrop-blur-sm">
+      <div className="sticky top-0 z-40 border-b border-[#1a1b22] bg-[#050507]/95 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
           <button
             onClick={() => router.push('/proyectos')}
