@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, Eye, FileText, Save, Rocket, Image as ImageIcon, Plus, X } from 'lucide-react';
-import { createProyecto } from '@/actions/proyectos';
+import { createProyecto, updateProyecto, Proyecto } from '@/actions/proyectos';
 import { getTechIcon } from '@/lib/techIcons';
 import ProyectoEditor, { blocksToHTML, Block } from './ProyectoEditor';
  
@@ -25,10 +25,27 @@ const EMPTY_FORM = {
   orden: 0,
 };
  
-export default function NuevoProyectoForm() {
+export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & { imagenes_muestra?: string[] } }) {
   const router = useRouter();
-  const [form, setForm] = useState(EMPTY_FORM);
-  const [blocks, setBlocks] = useState<Block[]>([{ id: 'init', type: 'paragraph', html: '', align: 'left' }]);
+  const [form, setForm] = useState(proyecto ? {
+    titulo: proyecto.titulo ?? '',
+    subtitulo: proyecto.subtitulo ?? '',
+    imagen_url: proyecto.imagen_url ?? '',
+    imagenes_muestra: proyecto.imagenes_muestra ?? [],
+    github_url: proyecto.github_url ?? '',
+    demo_url: proyecto.demo_url ?? '',
+    categoria: proyecto.categoria ?? [],
+    tecnologias: proyecto.tecnologias ?? [],
+    destacado: proyecto.destacado ?? false,
+    orden: proyecto.orden ?? 0,
+  } : EMPTY_FORM);
+  const [blocks, setBlocks] = useState<Block[]>(() => {
+    if (proyecto?.descripcion) {
+      // Parsear el HTML guardado de vuelta a blocks simples
+      return [{ id: 'init', type: 'paragraph' as const, html: proyecto.descripcion, align: 'left' as const }];
+    }
+    return [{ id: 'init', type: 'paragraph' as const, html: '', align: 'left' as const }];
+  });
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -83,11 +100,16 @@ export default function NuevoProyectoForm() {
     const setter = publish ? setPublishing : setSaving;
     setter(true);
     try {
-      await createProyecto({
+      const payload = {
         ...form,
         descripcion: blocksToHTML(blocks),
         destacado: publish ? form.destacado : false,
-      });
+      };
+      if (proyecto) {
+        await updateProyecto(proyecto.id, payload);
+      } else {
+        await createProyecto(payload);
+      }
       router.push('/proyectos');
     } finally {
       setter(false);
@@ -131,9 +153,11 @@ export default function NuevoProyectoForm() {
  
       <div className="max-w-5xl mx-auto px-6 py-10">
         <div className="mb-8">
-          <h1 className="text-2xl font-black text-white">Agregar nuevo proyecto</h1>
+          <h1 className="text-2xl font-black text-white">
+            {proyecto ? 'Editar proyecto' : 'Agregar nuevo proyecto'}
+          </h1>
           <p className="text-gray-500 text-sm mt-1">
-            Campos marcados con <span className="text-[#FF5C00]">*</span> son obligatorios.
+            {proyecto ? 'Modificá los campos que quieras actualizar.' : <>Campos marcados con <span className="text-[#FF5C00]">*</span> son obligatorios.</>}
           </p>
         </div>
  
