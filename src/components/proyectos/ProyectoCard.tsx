@@ -19,7 +19,11 @@ interface CardProps {
   onDelete?: () => void;
 }
 
-const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').trim();
+const extractFirstParagraph = (html: string): string => {
+  const match = html.match(/<p[^>]*>(.*?)<\/p>/i);
+  if (!match) return html.replace(/<[^>]*>/g, '').trim();
+  return match[1].replace(/<[^>]*>/g, '').trim();
+};
 
 export default function ProyectoCard({ id, title, subtitle, description, image, techIcons, githubLink, projectLink, highlight, onDelete }: CardProps) {
   const [hovered, setHovered] = useState(false);
@@ -59,11 +63,11 @@ export default function ProyectoCard({ id, title, subtitle, description, image, 
         <h3 className="text-base font-bold text-white leading-tight line-clamp-1">{title}</h3>
         <span className="text-[#FF5C00] font-semibold text-xs mt-0.5 mb-2 line-clamp-1">{subtitle}</span>
         <p className="text-gray-400 text-xs leading-relaxed line-clamp-2 flex-1">
-          {stripHtml(description)}
+          {extractFirstParagraph(description)}
         </p>
         {/* Iconos con límite y +n */}
         {(() => {
-          const MAX = 6;
+          const MAX = 9;
           const visible = techIcons.slice(0, MAX);
           const extra = techIcons.length - MAX;
           return (
