@@ -46,15 +46,11 @@ export default function RootLayout({
       className={`${bebasNeue.variable} ${dmMono.variable} ${barlowCondensed.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="h-full flex flex-col text-[110%]" style={{ fontFamily: 'var(--font-dm-mono)', backgroundColor: '#050507' }}>
-        {/* Fondos globales — fuera del AuthProvider para evitar stacking context */}
-        <img src="/fondoDePantalla.png" alt="" className="hidden md:block fixed inset-0 w-full h-full object-cover pointer-events-none" style={{ zIndex: -1 }} />
-        <img src="/fondoDePantallaMobile.png" alt="" className="md:hidden fixed w-full h-full object-cover pointer-events-none" style={{ zIndex: -1, top: '60px' }} />
-
         <AuthProvider>
           <Navbar />
           <MobileNav />
           <ScrollbarProvider>
-            <main className="flex-grow h-full">
+            <main className="flex-grow h-full relative">
               {children}
             </main>
           </ScrollbarProvider>
