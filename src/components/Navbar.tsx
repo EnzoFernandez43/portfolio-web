@@ -102,7 +102,8 @@ export default function Navbar() {
     ];
 
     const hiddenRoutes = ['/proyectos/nuevo', '/editar'];
-    const isHidden = hiddenRoutes.some(route => pathname.includes(route));
+    const isHidden = hiddenRoutes.some(route => pathname.includes(route)) 
+      || pathname.startsWith('/detalleproyecto/');
 
     if (isHidden) return null;
 
