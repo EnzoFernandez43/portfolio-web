@@ -247,7 +247,8 @@ export default function ContactoSection() {
 
               <div>
                 <label className="text-white text-sm font-medium block mb-1">
-                  Adjunto <span className="text-gray-500 font-normal">(opcional)</span>
+                  Adjunto{' '}
+                  <span className="ml-1 text-[10px] font-mono text-[#FF5C00] border border-[#FF5C00]/40 bg-[#FF5C00]/10 px-1.5 py-0.5 rounded-full">opcional</span>
                 </label>
                 <label className="flex items-center gap-3 w-full bg-[#13141a] border border-dashed border-[#1f2026] hover:border-[#FF5C00]/50 rounded-lg px-4 py-3 cursor-pointer transition-colors group">
                   <Paperclip size={16} className="text-gray-500 group-hover:text-[#FF5C00] transition-colors shrink-0" />
