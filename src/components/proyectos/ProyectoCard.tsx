@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { FaGithub } from 'react-icons/fa';
 import { ArrowRight, Pencil, Trash2 } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
@@ -28,15 +29,20 @@ const extractFirstParagraph = (html: string): string => {
 export default function ProyectoCard({ id, title, subtitle, description, image, techIcons, githubLink, projectLink, highlight, onDelete }: CardProps) {
   const [hovered, setHovered] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { isAdmin } = useAuth();
   const router = useRouter();
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <>
-      {/* Modal de confirmación */}
-      {showConfirm && (
+      {/* Modal de confirmación (usando Portal) */}
+      {mounted && showConfirm && createPortal(
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm"
           onClick={() => setShowConfirm(false)}
         >
           <div
@@ -60,7 +66,8 @@ export default function ProyectoCard({ id, title, subtitle, description, image, 
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       <div
