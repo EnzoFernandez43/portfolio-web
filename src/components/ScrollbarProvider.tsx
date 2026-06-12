@@ -24,7 +24,7 @@ export default function ScrollbarProvider({ children }: { children: React.ReactN
   }, []);
 
   return (
-    <div style={{ position: 'relative', flex: '1 1 0' }}>
+    <div style={{ position: 'relative', flex: '1 1 0', background: 'transparent' }}>
       <OverlayScrollbarsComponent
         element="div"
         style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}

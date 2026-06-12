@@ -5,24 +5,9 @@ import CodeCard from '@/components/CodeCard';
 
 export default function Home() {
   return (
-    <main className="bg-[#050507]">
-      {/* Imagen hero solo en mobile */}
-      <div className="relative w-full h-[280px] md:hidden overflow-hidden">
-        <img
-          src="/fondoDePantallaMobile.png"
-          alt=""
-          className="w-full h-full object-cover object-[center_-8%]"
-        />
-      </div>
-
+    <main className="bg-transparent">
       {/* Sección principal */}
-      <div className="relative min-h-screen flex items-start md:items-center justify-center overflow-visible pb-32 md:py-0 md:overflow-hidden">
-        {/* Fondo solo desktop */}
-        <img
-          src="/fondoDePantalla.png"
-          alt=""
-          className="hidden md:block absolute inset-0 w-full h-full object-cover -z-10"
-        />
+      <div className="relative min-h-screen h-screen flex items-start md:items-center justify-center overflow-visible md:overflow-hidden pb-32 md:py-0">
         <CodeCard />
 
         <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-12 px-6 max-w-6xl w-full z-10">
