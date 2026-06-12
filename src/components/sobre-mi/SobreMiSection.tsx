@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { FaReact, FaNodeJs, FaDocker, FaAws } from 'react-icons/fa';
 import { SiNextdotjs, SiTypescript, SiPostgresql, SiMongodb } from 'react-icons/si';
-import { Calendar, MapPin, Send, CheckCircle, Star, Pencil, X } from 'lucide-react';
+import { Calendar, MapPin, Send, CheckCircle, Star, Pencil, X, User, Coffee, Dumbbell, Lightbulb, BookOpen, Music } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { updateSobreMi } from '@/actions/sobreMi';
 
@@ -17,12 +17,19 @@ const INITIAL = {
         'Me motiva el aprendizaje constante, el trabajo en equipo y los desafíos que me sacan de mi zona de confort.',
     ],
     tiempoLibre: [
-        { icon: '🏃', text: 'Me gusta entrenar y mantenerme activo' },
-        { icon: '💡', text: 'Exploro nuevas tecnologías' },
-        { icon: '📖', text: 'Leo sobre negocios y crecimiento personal' },
-        { icon: '🎵', text: 'Escucho música para concentrarme' },
+        { text: 'Me gusta entrenar y mantenerme activo' },
+        { text: 'Exploro nuevas tecnologías' },
+        { text: 'Leo sobre negocios y crecimiento personal' },
+        { text: 'Escucho música para concentrarme' },
     ],
 };
+
+const TIEMPO_LIBRE_ICONS = [
+    <Dumbbell size={15} className="text-[#FF5C00] shrink-0" />,
+    <Lightbulb size={15} className="text-[#FF5C00] shrink-0" />,
+    <BookOpen size={15} className="text-[#FF5C00] shrink-0" />,
+    <Music size={15} className="text-[#FF5C00] shrink-0" />,
+];
 
 export default function SobreMiSection({ initialData }: { initialData: Record<string, string> }) {
     const { isAdmin } = useAuth();
@@ -37,9 +44,8 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
     );
 
     const [tiempoLibre, setTiempoLibre] = useState(() => {
-        const iconos = ['🏃', '💡', '📖', '🎵'];
         const items = initialData['tiempo_libre']?.split(';').map(s => s.trim()).filter(Boolean);
-        return items?.map((text, i) => ({ icon: iconos[i] ?? '•', text })) ?? INITIAL.tiempoLibre;
+        return items?.map((text) => ({ text })) ?? INITIAL.tiempoLibre;
     });
 
     const maxLen = editingCard === 0 ? QUIEN_SOY_MAX : TIEMPO_LIBRE_MAX;
@@ -57,9 +63,8 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
             await updateSobreMi('quien_soy', editValue);
         }
         if (editingCard === 1) {
-            const iconos = ['🏃', '💡', '📖', '🎵'];
             const items = editValue.split(';').map(s => s.trim()).filter(Boolean);
-            setTiempoLibre(items.map((text, i) => ({ icon: iconos[i] ?? '•', text })));
+            setTiempoLibre(items.map((text) => ({ text })));
             await updateSobreMi('tiempo_libre', editValue);
         }
         setSaving(false);
@@ -87,7 +92,7 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
                     <p className="text-gray-400 text-base leading-relaxed mb-8 max-w-xs" style={{ fontFamily: 'var(--font-barlow)' }}>
                         Desarrollador Full-Stack con pasión por crear soluciones digitales que generan impacto real.
                     </p>
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 max-w-[280px]">
                         {[
                             { icon: <Calendar size={18} />, title: '3+ años', sub: 'de experiencia' },
                             { icon: <MapPin size={18} />, title: 'Buenos Aires, Argentina', sub: 'Disponible para trabajo remoto' },
@@ -117,7 +122,7 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
                             </button>
                         )}
                         <div className="flex items-center gap-2 mb-3">
-                            <span className="text-[#FF5C00]">👤</span>
+                            <User size={16} className="text-[#FF5C00]" />
                             <p className="text-white font-bold">¿Quién soy?</p>
                         </div>
                         <div className="flex flex-col gap-3 text-gray-400 text-sm leading-relaxed">
@@ -135,13 +140,14 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
                             </button>
                         )}
                         <div className="flex items-center gap-2 mb-3">
-                            <span className="text-[#FF5C00]">☕</span>
+                            <Coffee size={16} className="text-[#FF5C00]" />
                             <p className="text-white font-bold">En mi tiempo libre</p>
                         </div>
                         <div className="flex flex-col gap-2">
-                            {tiempoLibre.map(({ icon, text }) => (
+                            {tiempoLibre.map(({ text }, i) => (
                                 <div key={text} className="flex items-center gap-3 text-gray-400 text-sm">
-                                    <span>{icon}</span><span>{text}</span>
+                                    {TIEMPO_LIBRE_ICONS[i] ?? <span>•</span>}
+                                    <span>{text}</span>
                                 </div>
                             ))}
                         </div>
