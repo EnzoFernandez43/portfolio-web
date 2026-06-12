@@ -9,12 +9,12 @@ export default function Home() {
       <img src="/fondoDePantalla.png" alt="" className="hidden md:block absolute inset-0 w-full h-full object-cover pointer-events-none -z-10" />
       <img src="/fondoDePantallaMobile.png" alt="" className="md:hidden absolute w-full object-cover pointer-events-none -z-10" style={{ top: '60px', height: 'calc(100% - 60px)' }} />
       {/* Sección principal */}
-      <div className="relative min-h-screen h-screen flex items-start md:items-center justify-center overflow-visible md:overflow-hidden pb-32 md:py-0">
+      <div className="relative min-h-screen h-screen flex items-start md:items-center justify-center overflow-visible md:overflow-hidden md:py-0">
         <CodeCard />
 
         <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-12 px-6 max-w-6xl w-full z-10">
           {/* Columna Izquierda */}
-          <div className="flex flex-col justify-center gap-2 mt-[90vw] md:mt-16">
+          <div className="flex flex-col justify-center gap-2 mt-[90vw] md:mt-16 pb-18 md:pb-0">
             <div>
               <h1 className="text-6xl md:text-7xl text-white leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Enzo</h1>
               <h1 className="text-[4.5rem] md:text-[6rem] text-[#FF5C00] leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Fernandez</h1>
