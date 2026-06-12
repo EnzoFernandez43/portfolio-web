@@ -113,7 +113,6 @@ export default function Navbar() {
 
                     {/* Logo con botón secreto embebido */}
                     <div className="flex items-center gap-3">
-                        {/* El "EF" es el botón secreto: sin cursor especial, sin hover visible */}
                         <div
                             onClick={handleSecretClick}
                             className="text-[#FF5C00] font-black text-5xl leading-none tracking-tighter select-none"
@@ -125,6 +124,12 @@ export default function Navbar() {
                             <span className="text-white font-bold text-base leading-tight">Enzo Fernandez</span>
                             <span className="text-gray-400 text-xs leading-tight">Full-Stack Developer</span>
                         </div>
+                        {isAdmin && (
+                            <button onClick={handleLogout}
+                                className="text-gray-400 hover:text-white text-xs font-mono border border-white/10 hover:border-white/30 px-3 py-1.5 rounded-full transition-all ml-2">
+                                Salir del modo admin
+                            </button>
+                        )}
                     </div>
 
                     {/* Centro */}
@@ -158,12 +163,6 @@ export default function Navbar() {
                             Descargar CV
                             <Download size={16} strokeWidth={2.5} />
                         </button>
-                        {isAdmin && (
-                            <button onClick={handleLogout}
-                                className="text-gray-400 hover:text-white text-xs font-mono border border-white/10 hover:border-white/30 px-3 py-1.5 rounded-full transition-all">
-                                Salir del admin
-                            </button>
-                        )}
                     </div>
 
                 </div>
