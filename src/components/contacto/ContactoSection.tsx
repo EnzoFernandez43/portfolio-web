@@ -1,12 +1,18 @@
 'use client';
 
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { Mail, MapPin, Clock, Send, Zap, Pencil, X } from 'lucide-react';
+import { Mail, MapPin, Clock, Send, Zap, Pencil, X, CheckCircle } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useState } from 'react';
 import { updateContacto } from '@/actions/contacto';
+import { createPortal } from 'react-dom';
 
 const INFO_ITEM_MAX = 50;
+const LIMITS = { nombre: 60, email: 100, asunto: 80, mensaje: 1000 };
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+type FormKey = keyof typeof LIMITS;
 
 export default function ContactoSection() {
   const { isAdmin } = useAuth();
@@ -15,12 +21,27 @@ export default function ContactoSection() {
   const [saving, setSaving] = useState(false);
 
   const [form, setForm] = useState({ nombre: '', email: '', asunto: '', mensaje: '' });
+  const [touched, setTouched] = useState({ nombre: false, email: false, asunto: false, mensaje: false });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [sendError, setSendError] = useState('');
 
+  const errors = {
+    nombre: form.nombre.length < 2 ? 'Mínimo 2 caracteres' : '',
+    email: !emailRegex.test(form.email) ? 'Email inválido' : '',
+    asunto: form.asunto.length < 2 ? 'Completá el asunto' : '',
+    mensaje: form.mensaje.length < 10 ? 'Mínimo 10 caracteres' : '',
+  };
+  const hasErrors = Object.values(errors).some(Boolean);
+
+  const setField = (key: FormKey, value: string) => {
+    if (value.length > LIMITS[key]) return;
+    setForm(f => ({ ...f, [key]: value }));
+  };
+
   const handleSubmit = async () => {
-    if (!form.nombre || !form.email || !form.asunto || !form.mensaje) return;
+    setTouched({ nombre: true, email: true, asunto: true, mensaje: true });
+    if (hasErrors) return;
     setSending(true);
     setSendError('');
     try {
@@ -32,6 +53,7 @@ export default function ContactoSection() {
       if (!res.ok) throw new Error();
       setSent(true);
       setForm({ nombre: '', email: '', asunto: '', mensaje: '' });
+      setTouched({ nombre: false, email: false, asunto: false, mensaje: false });
     } catch {
       setSendError('Hubo un error al enviar. Intentá de nuevo.');
     }
@@ -54,15 +76,18 @@ export default function ContactoSection() {
     setSaving(true);
     if (editingItem !== null) {
       const itemToUpdate = infoItems[editingItem];
-      const updatedInfoItems = infoItems.map((item, idx) =>
+      setInfoItems(infoItems.map((item, idx) =>
         idx === editingItem ? { ...item, value: editValue } : item
-      );
-      setInfoItems(updatedInfoItems);
+      ));
       await updateContacto(itemToUpdate.id, editValue);
     }
     setSaving(false);
     setEditingItem(null);
   };
+
+  const inputClass = (key: FormKey) =>
+    `w-full bg-[#13141a] border rounded-lg px-4 py-2.5 text-gray-300 text-sm placeholder-gray-600 focus:outline-none transition-colors ${touched[key] && errors[key] ? 'border-red-500/60 focus:border-red-500' : 'border-[#1f2026] focus:border-[#FF5C00]'
+    }`;
 
   return (
     <section className="min-h-screen pt-[112px] pb-16 px-6 max-w-6xl mx-auto">
@@ -79,7 +104,6 @@ export default function ContactoSection() {
             ¿Tienes una idea, proyecto o simplemente quieres saludar? Estoy siempre abierto a nuevas oportunidades y colaboraciones emocionantes.
           </p>
 
-          {/* Info items */}
           <div className="flex flex-col gap-5 mb-12">
             {infoItems.map((item, index) => (
               <div key={item.label} className="relative flex items-center gap-4 group">
@@ -100,7 +124,6 @@ export default function ContactoSection() {
             ))}
           </div>
 
-          {/* Redes */}
           <div>
             <p className="text-white font-bold mb-1">Conectemos en redes</p>
             <p className="text-gray-400 text-sm mb-4">Sígueme en mis redes para ver más de mi trabajo</p>
@@ -119,8 +142,6 @@ export default function ContactoSection() {
 
         {/* COLUMNA DERECHA */}
         <div className="flex flex-col gap-4">
-
-          {/* Formulario */}
           <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-8">
             <span className="text-[#FF5C00] font-black text-xl">{`</>`}</span>
             <h2 className="text-white font-bold text-xl mt-2">Envíame un mensaje</h2>
@@ -130,91 +151,84 @@ export default function ContactoSection() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="text-white text-sm font-medium block mb-1">Nombre</label>
-                  <input
-                    type="text"
-                    value={form.nombre} onChange={e => setForm(f => ({ ...f, nombre: e.target.value }))}
+                  <input type="text" value={form.nombre}
+                    onChange={e => setField('nombre', e.target.value)}
+                    onBlur={() => setTouched(t => ({ ...t, nombre: true }))}
                     placeholder="Tu nombre completo"
-                    className="w-full bg-[#13141a] border border-[#1f2026] rounded-lg px-4 py-2.5 text-gray-300 text-sm placeholder-gray-600 focus:outline-none focus:border-[#FF5C00] transition-colors"
+                    className={inputClass('nombre')}
                   />
+                  {touched.nombre && errors.nombre && (
+                    <p className="text-red-400 text-xs mt-1">{errors.nombre}</p>
+                  )}
                 </div>
                 <div>
                   <label className="text-white text-sm font-medium block mb-1">Email</label>
-                  <input
-                    type="email"
-                    value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                  <input type="email" value={form.email}
+                    onChange={e => setField('email', e.target.value)}
+                    onBlur={() => setTouched(t => ({ ...t, email: true }))}
                     placeholder="tu@email.com"
-                    className="w-full bg-[#13141a] border border-[#1f2026] rounded-lg px-4 py-2.5 text-gray-300 text-sm placeholder-gray-600 focus:outline-none focus:border-[#FF5C00] transition-colors"
+                    className={inputClass('email')}
                   />
+                  {touched.email && errors.email && (
+                    <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+                  )}
                 </div>
               </div>
 
               <div>
                 <label className="text-white text-sm font-medium block mb-1">Asunto</label>
-                <input
-                  type="text"
-                  value={form.asunto} onChange={e => setForm(f => ({ ...f, asunto: e.target.value }))}
+                <input type="text" value={form.asunto}
+                  onChange={e => setField('asunto', e.target.value)}
+                  onBlur={() => setTouched(t => ({ ...t, asunto: true }))}
                   placeholder="¿De qué se trata?"
-                  className="w-full bg-[#13141a] border border-[#1f2026] rounded-lg px-4 py-2.5 text-gray-300 text-sm placeholder-gray-600 focus:outline-none focus:border-[#FF5C00] transition-colors"
+                  className={inputClass('asunto')}
                 />
+                <div className="flex justify-between mt-1">
+                  {touched.asunto && errors.asunto
+                    ? <p className="text-red-400 text-xs">{errors.asunto}</p>
+                    : <span />}
+                  <span className={`text-xs font-mono ${form.asunto.length >= LIMITS.asunto ? 'text-red-400' : 'text-gray-600'}`}>
+                    {form.asunto.length}/{LIMITS.asunto}
+                  </span>
+                </div>
               </div>
 
               <div>
                 <label className="text-white text-sm font-medium block mb-1">Mensaje</label>
-                <textarea
-                  value={form.mensaje} onChange={e => setForm(f => ({ ...f, mensaje: e.target.value }))}
+                <textarea value={form.mensaje}
+                  onChange={e => setField('mensaje', e.target.value)}
+                  onBlur={() => setTouched(t => ({ ...t, mensaje: true }))}
                   placeholder="Cuéntame sobre tu proyecto, idea o cómo puedo ayudarte..."
                   rows={5}
-                  className="w-full bg-[#13141a] border border-[#1f2026] rounded-lg px-4 py-2.5 text-gray-300 text-sm placeholder-gray-600 focus:outline-none focus:border-[#FF5C00] transition-colors resize-none"
+                  className={`${inputClass('mensaje')} resize-none`}
                 />
+                <div className="flex justify-between mt-1">
+                  {touched.mensaje && errors.mensaje
+                    ? <p className="text-red-400 text-xs">{errors.mensaje}</p>
+                    : <span />}
+                  <span className={`text-xs font-mono ${form.mensaje.length >= LIMITS.mensaje ? 'text-red-400' : 'text-gray-600'}`}>
+                    {form.mensaje.length}/{LIMITS.mensaje}
+                  </span>
+                </div>
               </div>
 
-              {sent ? (
-                <p className="text-green-400 text-sm font-mono">✓ Mensaje enviado. Te respondo pronto.</p>
-              ) : (
-                <>
-                  {sendError && <p className="text-red-400 text-xs font-mono">{sendError}</p>}
-                  <button
-                    onClick={handleSubmit}
-                    disabled={sending}
-                    className="bg-[#FF5C00] hover:bg-orange-600 disabled:opacity-50 text-white font-semibold px-6 py-3 rounded-full flex items-center gap-2 transition-all w-fit"
-                  >
-                    {sending ? 'Enviando...' : 'Enviar mensaje'} <Send size={16} />
-                  </button>
-                </>
-              )}
+              {sendError && <p className="text-red-400 text-xs font-mono">{sendError}</p>}
+
+              <button onClick={handleSubmit} disabled={sending}
+                className="bg-[#FF5C00] hover:bg-orange-600 disabled:opacity-50 text-white font-semibold px-6 py-3 rounded-full flex items-center gap-2 transition-all w-fit">
+                {sending ? 'Enviando...' : 'Enviar mensaje'} <Send size={16} />
+              </button>
             </div>
           </div>
-
-          {/* Card por qué trabajar conmigo */}
-          <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-6">
-            <div className="flex items-center gap-2 mb-4">
-              <Zap size={18} className="text-[#FF5C00]" />
-              <p className="text-white font-bold">¿Por qué trabajar conmigo?</p>
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              {[
-                { title: 'Código limpio', desc: 'Soluciones escalables y mantenibles' },
-                { title: 'Comunicación clara', desc: 'Te mantengo al tanto en cada paso' },
-                { title: 'Enfoque en resultados', desc: 'Tu éxito es mi prioridad' },
-              ].map(({ title, desc }) => (
-                <div key={title}>
-                  <p className="text-[#FF5C00] font-semibold text-sm mb-1">{title}</p>
-                  <p className="text-gray-400 text-xs leading-relaxed">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
         </div>
       </div>
 
-      {/* Modal edición — solo admin */}
+      {/* Modal edición admin */}
       {editingItem !== null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
           onClick={e => e.target === e.currentTarget && setEditingItem(null)}>
           <div className="bg-[#0d0d0d] border border-white/10 rounded-2xl p-7 w-full max-w-lg mx-4"
             style={{ boxShadow: '0 0 60px rgba(255,92,0,0.1)' }}>
-
             <div className="flex items-center justify-between mb-4">
               <div>
                 <p className="text-[#FF5C00] text-xs font-mono uppercase tracking-widest mb-1">Modo admin</p>
@@ -225,14 +239,10 @@ export default function ContactoSection() {
                 <X size={13} />
               </button>
             </div>
-
             <div className="h-px bg-gradient-to-r from-[#FF5C00] via-[#FF5C00]/40 to-transparent mb-5" />
-
-            <textarea
-              value={editValue}
+            <textarea value={editValue}
               onChange={e => e.target.value.length <= INFO_ITEM_MAX && setEditValue(e.target.value)}
-              rows={3}
-              autoFocus
+              rows={3} autoFocus
               className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-gray-300 text-sm font-mono outline-none focus:border-[#FF5C00]/60 transition-all resize-none"
             />
             <div className="flex justify-end mt-1 mb-4">
@@ -240,7 +250,6 @@ export default function ContactoSection() {
                 {editValue.length}/{INFO_ITEM_MAX}
               </span>
             </div>
-
             <div className="flex gap-3 mt-4">
               <button onClick={() => setEditingItem(null)}
                 className="flex-1 border border-white/10 hover:border-white/30 text-gray-400 hover:text-white py-2.5 rounded-xl text-sm font-semibold transition-all">
@@ -253,6 +262,28 @@ export default function ContactoSection() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Modal éxito */}
+      {sent && createPortal(
+        <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/70 backdrop-blur-sm"
+          onClick={() => setSent(false)}>
+          <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-8 w-80 text-center"
+            style={{ boxShadow: '0 0 60px rgba(255,92,0,0.15)' }}
+            onClick={e => e.stopPropagation()}>
+            <div className="w-14 h-14 rounded-full border border-[#FF5C00]/40 bg-[#FF5C00]/10 flex items-center justify-center mx-auto mb-4">
+              <CheckCircle size={28} className="text-[#FF5C00]" />
+            </div>
+            <p className="text-[#FF5C00] text-xs font-mono uppercase tracking-widest mb-2">Enviado</p>
+            <h3 className="text-white font-black text-xl mb-2">¡Mensaje recibido!</h3>
+            <p className="text-gray-400 text-sm mb-6">Te respondo en menos de 24 horas.</p>
+            <button onClick={() => setSent(false)}
+              className="w-full bg-[#FF5C00] hover:bg-[#e05200] text-white font-semibold py-2.5 rounded-xl text-sm transition-colors">
+              Cerrar
+            </button>
+          </div>
+        </div>,
+        document.body
       )}
     </section>
   );
