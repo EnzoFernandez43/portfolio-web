@@ -161,26 +161,6 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
               </div>
             )}
 
-            {/* Categorías */}
-            {proyecto.categoria && proyecto.categoria.length > 0 && (
-              <div className="bg-[#0c0d11] border border-[#1a1b22] rounded-2xl p-5">
-                <h3 className="text-xs font-mono uppercase tracking-wider text-gray-500 mb-3">
-                  Categorías
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {proyecto.categoria.map(cat => (
-                    <span
-                      key={cat}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#FF5C00]/30 text-[#FF5C00] text-xs font-medium"
-                    >
-                      <Tag size={10} />
-                      {cat}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
           </div>
         </div>
       </div>
