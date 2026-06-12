@@ -7,13 +7,12 @@ export default function Home() {
   return (
     <main className="bg-[#050507]">
       {/* Imagen hero solo en mobile */}
-      <div className="relative w-full h-[55vw] min-h-[240px] max-h-[320px] md:hidden overflow-hidden">
+      <div className="relative w-full h-[280px] md:hidden overflow-hidden">
         <img
           src="/fondoDePantallaMobile.png"
           alt=""
           className="w-full h-full object-cover object-[center_-8%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050507]" />
       </div>
 
       {/* Sección principal */}
