@@ -1,7 +1,7 @@
 'use client';
 
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { Mail, MapPin, Clock, Send, Zap, Pencil, X, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, Clock, Send, Zap, Pencil, X, CheckCircle, Paperclip } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { useState } from 'react';
 import { updateContacto } from '@/actions/contacto';
@@ -26,6 +26,27 @@ export default function ContactoSection() {
   const [sent, setSent] = useState(false);
   const [sendError, setSendError] = useState('');
 
+  const [archivo, setArchivo] = useState<File | null>(null);
+  const [archivoError, setArchivoError] = useState('');
+
+  const handleArchivo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const allowed = ['application/pdf', 'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'image/jpeg', 'image/png', 'image/webp'];
+    if (!allowed.includes(file.type)) {
+      setArchivoError('Solo PDF, Word o imagen (JPG/PNG/WEBP)');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setArchivoError('Máximo 5MB');
+      return;
+    }
+    setArchivoError('');
+    setArchivo(file);
+  };
+
   const errors = {
     nombre: form.nombre.length < 2 ? 'Mínimo 2 caracteres' : '',
     email: !emailRegex.test(form.email) ? 'Email inválido' : '',
@@ -41,19 +62,31 @@ export default function ContactoSection() {
 
   const handleSubmit = async () => {
     setTouched({ nombre: true, email: true, asunto: true, mensaje: true });
-    if (hasErrors) return;
+    if (hasErrors || archivoError) return;
     setSending(true);
     setSendError('');
+
+    let attachmentData: { name: string; data: string; type: string } | null = null;
+    if (archivo) {
+      const base64 = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve((reader.result as string).split(',')[1]);
+        reader.readAsDataURL(archivo);
+      });
+      attachmentData = { name: archivo.name, data: base64, type: archivo.type };
+    }
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, attachment: attachmentData }),
       });
       if (!res.ok) throw new Error();
       setSent(true);
       setForm({ nombre: '', email: '', asunto: '', mensaje: '' });
       setTouched({ nombre: false, email: false, asunto: false, mensaje: false });
+      setArchivo(null);
     } catch {
       setSendError('Hubo un error al enviar. Intentá de nuevo.');
     }
@@ -210,6 +243,27 @@ export default function ContactoSection() {
                     {form.mensaje.length}/{LIMITS.mensaje}
                   </span>
                 </div>
+              </div>
+
+              <div>
+                <label className="text-white text-sm font-medium block mb-1">
+                  Adjunto <span className="text-gray-500 font-normal">(opcional)</span>
+                </label>
+                <label className="flex items-center gap-3 w-full bg-[#13141a] border border-dashed border-[#1f2026] hover:border-[#FF5C00]/50 rounded-lg px-4 py-3 cursor-pointer transition-colors group">
+                  <Paperclip size={16} className="text-gray-500 group-hover:text-[#FF5C00] transition-colors shrink-0" />
+                  <span className="text-sm text-gray-500 group-hover:text-gray-300 transition-colors truncate">
+                    {archivo ? archivo.name : 'PDF, Word o imagen — máx 5MB'}
+                  </span>
+                  {archivo && (
+                    <button type="button" onClick={(e) => { e.preventDefault(); setArchivo(null); }}
+                      className="ml-auto text-gray-500 hover:text-red-400 transition-colors shrink-0">
+                      <X size={14} />
+                    </button>
+                  )}
+                  <input type="file" className="hidden" onChange={handleArchivo}
+                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp" />
+                </label>
+                {archivoError && <p className="text-red-400 text-xs mt-1">{archivoError}</p>}
               </div>
 
               {sendError && <p className="text-red-400 text-xs font-mono">{sendError}</p>}

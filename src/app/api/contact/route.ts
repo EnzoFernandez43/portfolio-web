@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
-  const { nombre, email, asunto, mensaje } = await req.json();
+  const { nombre, email, asunto, mensaje, attachment } = await req.json();
 
   const { error } = await resend.emails.send({
     from: 'onboarding@resend.dev',
@@ -16,6 +16,10 @@ export async function POST(req: Request) {
       <hr/>
       <p>${mensaje.replace(/\n/g, '<br/>')}</p>
     `,
+    attachments: attachment ? [{
+      filename: attachment.name,
+      content: attachment.data,  // base64
+    }] : undefined,
   });
 
   if (error) return NextResponse.json({ error }, { status: 500 });
