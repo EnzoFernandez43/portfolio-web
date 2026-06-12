@@ -17,14 +17,14 @@ export default function MobileNav() {
   if (hidden) return null;
 
   return (
-    <nav className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-sm">
-      <div className="bg-black/70 backdrop-blur-xl border border-white/10 rounded-2xl px-2 py-2 flex items-center justify-around"
+    <nav className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%]">
+      <div className="bg-black/70 backdrop-blur-xl border border-white/10 rounded-2xl px-1 py-2 flex items-center"
         style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,92,0,0.08)' }}>
         {links.map(({ href, label, icon: Icon }) => {
           const active = pathname === href;
           return (
             <Link key={href} href={href}
-              className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all ${active ? 'bg-[#FF5C00]/15' : 'hover:bg-white/5'}`}>
+              className={`flex-1 flex flex-col items-center gap-1 py-2 rounded-xl transition-all ${active ? 'bg-[#FF5C00]/15' : 'hover:bg-white/5'}`}>
               <Icon size={20} className={active ? 'text-[#FF5C00]' : 'text-gray-400'} strokeWidth={active ? 2.5 : 1.8} />
               <span className={`text-[10px] font-medium whitespace-nowrap ${active ? 'text-[#FF5C00]' : 'text-gray-500'}`}>{label}</span>
             </Link>
