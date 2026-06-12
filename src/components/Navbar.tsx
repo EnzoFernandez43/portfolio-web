@@ -43,7 +43,15 @@ export default function Navbar() {
             setScrolled(detail.scrollTop > 10);
         };
         window.addEventListener('app-scroll', handler);
-        return () => window.removeEventListener('app-scroll', handler);
+
+        // Fallback for native scroll on mobile
+        const nativeHandler = () => setScrolled(window.scrollY > 10);
+        window.addEventListener('scroll', nativeHandler);
+
+        return () => {
+            window.removeEventListener('app-scroll', handler);
+            window.removeEventListener('scroll', nativeHandler);
+        };
     }, []);
 
     // Cerrar modal con Escape
@@ -109,7 +117,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${lightboxOpen ? 'opacity-0 pointer-events-none' : ''} ${scrolled ? 'bg-black/40 backdrop-blur-xl border-b border-white/10' : 'bg-transparent border-b border-transparent'}`}>
+            <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${lightboxOpen ? 'opacity-0 pointer-events-none' : ''} ${scrolled ? 'bg-black/40 backdrop-blur-xl border-b border-white/10' : 'bg-transparent border-b border-transparent'} md:bg-transparent max-md:bg-black/50 max-md:backdrop-blur-xl max-md:border-b max-md:border-white/10`}>
                 <div className="w-full px-8 md:px-16 h-[72px] flex items-center justify-between relative">
 
                     {/* Logo con botón secreto embebido */}
