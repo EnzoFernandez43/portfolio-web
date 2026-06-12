@@ -26,7 +26,7 @@ export default function MobileNav() {
             <Link key={href} href={href}
               className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all ${active ? 'bg-[#FF5C00]/15' : 'hover:bg-white/5'}`}>
               <Icon size={20} className={active ? 'text-[#FF5C00]' : 'text-gray-400'} strokeWidth={active ? 2.5 : 1.8} />
-              <span className={`text-[10px] font-medium ${active ? 'text-[#FF5C00]' : 'text-gray-500'}`}>{label}</span>
+              <span className={`text-[10px] font-medium whitespace-nowrap ${active ? 'text-[#FF5C00]' : 'text-gray-500'}`}>{label}</span>
             </Link>
           );
         })}

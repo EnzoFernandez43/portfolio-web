@@ -5,19 +5,30 @@ import CodeCard from '@/components/CodeCard';
 
 export default function Home() {
   return (
-    <main>
-      <div className="relative min-h-screen flex items-start md:items-center justify-center overflow-visible pt-20 pb-32 md:py-0 md:overflow-hidden">
-        {/* Fondo */}
+    <main className="bg-[#050507]">
+      {/* Imagen hero solo en mobile */}
+      <div className="relative w-full h-[55vw] min-h-[240px] max-h-[320px] md:hidden overflow-hidden">
+        <img
+          src="/fondoDePantallaMobile.png"
+          alt=""
+          className="w-full h-full object-cover object-bottom"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050507]" />
+      </div>
+
+      {/* Sección principal */}
+      <div className="relative min-h-screen flex items-start md:items-center justify-center overflow-visible pb-32 md:py-0 md:overflow-hidden">
+        {/* Fondo solo desktop */}
         <img
           src="/fondoDePantalla.png"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover -z-10"
+          className="hidden md:block absolute inset-0 w-full h-full object-cover -z-10"
         />
         <CodeCard />
 
         <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-12 px-6 max-w-6xl w-full z-10">
           {/* Columna Izquierda */}
-          <div className="flex flex-col justify-center gap-4 mt-16 pb-28 md:pb-0">
+          <div className="flex flex-col justify-center gap-4 md:mt-16">
             <div>
               <h1 className="text-6xl md:text-7xl text-white leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Enzo</h1>
               <h1 className="text-[4.5rem] md:text-[6rem] text-[#FF5C00] leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Fernandez</h1>
