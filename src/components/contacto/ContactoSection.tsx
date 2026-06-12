@@ -14,6 +14,30 @@ export default function ContactoSection() {
   const [editValue, setEditValue] = useState('');
   const [saving, setSaving] = useState(false);
 
+  const [form, setForm] = useState({ nombre: '', email: '', asunto: '', mensaje: '' });
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [sendError, setSendError] = useState('');
+
+  const handleSubmit = async () => {
+    if (!form.nombre || !form.email || !form.asunto || !form.mensaje) return;
+    setSending(true);
+    setSendError('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error();
+      setSent(true);
+      setForm({ nombre: '', email: '', asunto: '', mensaje: '' });
+    } catch {
+      setSendError('Hubo un error al enviar. Intentá de nuevo.');
+    }
+    setSending(false);
+  };
+
   const [infoItems, setInfoItems] = useState([
     { id: 'email', icon: <Mail size={18} />, label: 'Email', value: 'enzofernandez.dev@gmail.com' },
     { id: 'ubicacion', icon: <MapPin size={18} />, label: 'Ubicación', value: 'Buenos Aires, Argentina' },
@@ -108,6 +132,7 @@ export default function ContactoSection() {
                   <label className="text-white text-sm font-medium block mb-1">Nombre</label>
                   <input
                     type="text"
+                    value={form.nombre} onChange={e => setForm(f => ({ ...f, nombre: e.target.value }))}
                     placeholder="Tu nombre completo"
                     className="w-full bg-[#13141a] border border-[#1f2026] rounded-lg px-4 py-2.5 text-gray-300 text-sm placeholder-gray-600 focus:outline-none focus:border-[#FF5C00] transition-colors"
                   />
@@ -116,6 +141,7 @@ export default function ContactoSection() {
                   <label className="text-white text-sm font-medium block mb-1">Email</label>
                   <input
                     type="email"
+                    value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                     placeholder="tu@email.com"
                     className="w-full bg-[#13141a] border border-[#1f2026] rounded-lg px-4 py-2.5 text-gray-300 text-sm placeholder-gray-600 focus:outline-none focus:border-[#FF5C00] transition-colors"
                   />
@@ -126,6 +152,7 @@ export default function ContactoSection() {
                 <label className="text-white text-sm font-medium block mb-1">Asunto</label>
                 <input
                   type="text"
+                  value={form.asunto} onChange={e => setForm(f => ({ ...f, asunto: e.target.value }))}
                   placeholder="¿De qué se trata?"
                   className="w-full bg-[#13141a] border border-[#1f2026] rounded-lg px-4 py-2.5 text-gray-300 text-sm placeholder-gray-600 focus:outline-none focus:border-[#FF5C00] transition-colors"
                 />
@@ -134,15 +161,27 @@ export default function ContactoSection() {
               <div>
                 <label className="text-white text-sm font-medium block mb-1">Mensaje</label>
                 <textarea
+                  value={form.mensaje} onChange={e => setForm(f => ({ ...f, mensaje: e.target.value }))}
                   placeholder="Cuéntame sobre tu proyecto, idea o cómo puedo ayudarte..."
                   rows={5}
                   className="w-full bg-[#13141a] border border-[#1f2026] rounded-lg px-4 py-2.5 text-gray-300 text-sm placeholder-gray-600 focus:outline-none focus:border-[#FF5C00] transition-colors resize-none"
                 />
               </div>
 
-              <button className="bg-[#FF5C00] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full flex items-center gap-2 transition-all w-fit">
-                Enviar mensaje <Send size={16} />
-              </button>
+              {sent ? (
+                <p className="text-green-400 text-sm font-mono">✓ Mensaje enviado. Te respondo pronto.</p>
+              ) : (
+                <>
+                  {sendError && <p className="text-red-400 text-xs font-mono">{sendError}</p>}
+                  <button
+                    onClick={handleSubmit}
+                    disabled={sending}
+                    className="bg-[#FF5C00] hover:bg-orange-600 disabled:opacity-50 text-white font-semibold px-6 py-3 rounded-full flex items-center gap-2 transition-all w-fit"
+                  >
+                    {sending ? 'Enviando...' : 'Enviar mensaje'} <Send size={16} />
+                  </button>
+                </>
+              )}
             </div>
           </div>
 
