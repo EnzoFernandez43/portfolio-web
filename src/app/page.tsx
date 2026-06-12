@@ -11,7 +11,7 @@ export default function Home() {
         <img
           src="/fondoDePantallaMobile.png"
           alt=""
-          className="w-full h-full object-cover object-bottom"
+          className="w-full h-full object-cover object-[center_-8%]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#050507]" />
       </div>
