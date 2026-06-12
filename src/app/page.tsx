@@ -6,7 +6,7 @@ import CodeCard from '@/components/CodeCard';
 export default function Home() {
   return (
     <main>
-      <div className="relative h-screen flex items-center justify-center overflow-hidden">
+      <div className="relative min-h-screen flex items-start md:items-center justify-center overflow-visible pt-20 pb-32 md:py-0 md:overflow-hidden">
         {/* Fondo */}
         <img
           src="/fondoDePantalla.png"
@@ -73,7 +73,7 @@ export default function Home() {
         </div>
         
         {/* Scroll indicator */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 md:block hidden">
           <div className="w-6 h-10 rounded-full border-2 border-white/30 flex justify-center pt-2">
             <div className="w-1 h-2 bg-[#FF5C00] rounded-full animate-bounce" />
           </div>

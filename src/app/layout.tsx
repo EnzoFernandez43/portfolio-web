@@ -45,7 +45,7 @@ export default function RootLayout({
       lang="es"
       className={`${bebasNeue.variable} ${dmMono.variable} ${barlowCondensed.variable} ${montserrat.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col text-[110%]" style={{ fontFamily: 'var(--font-dm-mono)' }}>
+      <body className="h-full flex flex-col text-[110%]" style={{ fontFamily: 'var(--font-dm-mono)' }}>
         <AuthProvider>
           <Navbar />
           <MobileNav />
