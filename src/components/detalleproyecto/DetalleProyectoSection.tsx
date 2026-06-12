@@ -31,14 +31,16 @@ export default function DetalleProyectoSection({ proyecto }: { proyecto: Proyect
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/70" />
 
         {/* Botón volver */}
-        <div className="absolute top-6 left-6">
-          <button
-            onClick={() => router.push('/proyectos')}
-            className="flex items-center gap-2 text-gray-300 hover:text-[#FF5C00] text-sm transition-colors group bg-black/40 backdrop-blur-sm border border-white/10 rounded-full px-4 py-2"
-          >
-            <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
-            Volver a proyectos
-          </button>
+        <div className="absolute top-6 left-0 right-0">
+          <div className="max-w-6xl mx-auto px-6">
+            <button
+              onClick={() => router.push('/proyectos')}
+              className="flex items-center gap-2 text-white hover:text-white text-sm transition-all group bg-[#FF5C00]/80 hover:bg-[#FF5C00] backdrop-blur-sm border border-[#FF5C00] rounded-full px-4 py-2"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform" />
+              Volver a proyectos
+            </button>
+          </div>
         </div>
       </div>
 
