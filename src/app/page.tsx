@@ -17,10 +17,10 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-12 px-6 max-w-6xl w-full z-10">
           {/* Columna Izquierda */}
-          <div className="flex flex-col justify-center gap-4 mt-16">
+          <div className="flex flex-col justify-center gap-4 mt-16 pb-28 md:pb-0">
             <div>
-              <h1 className="text-7xl text-white leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Enzo</h1>
-              <h1 className="text-[6rem] text-[#FF5C00] leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Fernandez</h1>
+              <h1 className="text-6xl md:text-7xl text-white leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Enzo</h1>
+              <h1 className="text-[4.5rem] md:text-[6rem] text-[#FF5C00] leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Fernandez</h1>
             </div>
             
             <p className="font-semibold text-xl text-white" style={{ fontFamily: 'var(--font-barlow)' }}>
@@ -32,14 +32,14 @@ export default function Home() {
               Me apasiona crear soluciones que generen impacto real a través de la tecnología.
             </p>
 
-            <div className="flex gap-4 mt-2">
+            <div className="flex flex-col sm:flex-row gap-3 mt-2">
               <a href="/proyectos"
-                className="group bg-[#FF5C00] hover:bg-[#e05200] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+                className="group bg-[#FF5C00] hover:bg-[#e05200] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors w-full sm:w-auto justify-center"
                 style={{ fontFamily: 'var(--font-barlow)' }}>
                 Ver mis proyectos <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
               </a>
               <a href="/contacto"
-                className="group border border-white/40 hover:border-white text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors"
+                className="group border border-white/40 hover:border-white text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 transition-colors w-full sm:w-auto justify-center"
                 style={{ fontFamily: 'var(--font-barlow)' }}>
                 Contactar <Send size={16} className="transition-transform duration-300 group-hover:rotate-45" />
               </a>
@@ -48,7 +48,7 @@ export default function Home() {
             {/* Tecnologías */}
             <div className="mt-4">
               <p className="text-gray-400 text-sm mb-3">Tecnologías principales</p>
-              <div className="flex gap-3">
+              <div className="grid grid-cols-3 sm:flex gap-3">
                 {[
                   { icon: <FaReact size={24} className="text-[#61DAFB]" />, bg: 'bg-black/60', label: 'React' },
                   { icon: <SiNextdotjs size={24} className="text-white" />, bg: 'bg-black/60', label: 'Next.js' },
@@ -61,7 +61,7 @@ export default function Home() {
                     <div className={`w-12 h-12 rounded-xl ${tech.bg} border border-white/10 flex items-center justify-center transition-transform duration-200 group-hover:scale-110 group-hover:border-[#FF5C00]/50`}>
                       {tech.icon}
                     </div>
-                    <span className="text-white/70 text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200" style={{ fontFamily: 'var(--font-barlow)' }}>
+                    <span className="text-white/70 text-xs sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200" style={{ fontFamily: 'var(--font-barlow)' }}>
                       {tech.label}
                     </span>
                   </div>

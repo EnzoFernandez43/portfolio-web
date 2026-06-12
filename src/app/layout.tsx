@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Bebas_Neue, DM_Mono, Barlow_Condensed, Montserrat } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar"; // Importamos tu Navbar
+import Navbar from "@/components/Navbar";
+import MobileNav from "@/components/MobileNav";
 import ScrollbarProvider from '@/components/ScrollbarProvider';
 import { AuthProvider } from '@/context/AuthContext';
 
@@ -30,7 +31,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Enzo Fernandez | Portfolio Full-Stack", // Ajusta el título
+  title: "Enzo Fernandez | Portfolio Full-Stack",
   description: "Portfolio profesional de Enzo Fernandez, Ingeniero en Sistemas y desarrollador Full-Stack.",
 };
 
@@ -40,7 +41,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Cambiamos lang a "es"
     <html
       lang="es"
       className={`${bebasNeue.variable} ${dmMono.variable} ${barlowCondensed.variable} ${montserrat.variable} h-full antialiased`}
@@ -48,6 +48,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col text-[110%]" style={{ fontFamily: 'var(--font-dm-mono)' }}>
         <AuthProvider>
           <Navbar />
+          <MobileNav />
           <ScrollbarProvider>
             <main className="flex-grow h-full">
               {children}

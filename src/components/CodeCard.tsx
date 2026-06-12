@@ -48,7 +48,7 @@ export default function CodeCard() {
 
   return (
     <div
-      className="absolute top-[12%] right-[3%] z-20" // Added z-20 here
+      className="hidden md:block absolute top-[12%] right-[3%] z-20"
       style={{ width: '320px', height: '260px' }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
