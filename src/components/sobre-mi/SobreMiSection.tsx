@@ -80,19 +80,19 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
     });
 
     return (
-        <section className="min-h-screen pt-[112px] pb-16 px-6 max-w-6xl mx-auto flex flex-col gap-8">
+        <section className="min-h-screen pt-20 md:pt-[112px] pb-16 px-6 max-w-6xl mx-auto flex flex-col gap-8">
 
             {/* BLOQUE 1 */}
-            <div className="grid grid-cols-[1fr_1fr_1fr] gap-8 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] gap-8 items-start">
                 <div>
-                    <h1 className="text-7xl font-black uppercase leading-none mb-4" style={{ fontFamily: 'var(--font-bebas)' }}>
+                    <h1 className="text-6xl md:text-7xl font-black uppercase leading-none mb-4" style={{ fontFamily: 'var(--font-bebas)' }}>
                         <span className="text-white">ENZO</span><br />
                         <span className="text-[#FF5C00]">FERNANDEZ</span>
                     </h1>
-                    <p className="text-gray-400 text-base leading-relaxed mb-8 max-w-xs" style={{ fontFamily: 'var(--font-barlow)' }}>
+                    <p className="text-gray-400 text-base leading-relaxed mb-8 max-w-full md:max-w-xs" style={{ fontFamily: 'var(--font-barlow)' }}>
                         Desarrollador Full-Stack con pasión por crear soluciones digitales que generan impacto real.
                     </p>
-                    <div className="flex flex-col gap-4 max-w-[280px]">
+                    <div className="flex flex-col gap-4 max-w-full md:max-w-[280px]">
                         {[
                             { icon: <Calendar size={18} />, title: '3+ años', sub: 'de experiencia' },
                             { icon: <MapPin size={18} />, title: 'Buenos Aires, Argentina', sub: 'Disponible para trabajo remoto' },
@@ -109,7 +109,7 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
                     </div>
                 </div>
 
-                <div />
+                <div className="hidden md:block" />
 
                 <div className="flex flex-col gap-4">
                     {/* ¿Quién soy? */}
@@ -155,15 +155,15 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
                 </div>
             </div>
 
-            {/* BLOQUE 2 — sin cambios, hardcodeado */}
-            <div className="grid grid-cols-[1.4fr_1fr_1fr] gap-4">
+            {/* BLOQUE 2 */}
+            <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr_1fr] gap-4">
                 <div className="relative bg-[#0c0d11] rounded-2xl p-6" style={cardStyle(2)}
                     onMouseEnter={() => setHovered(2)} onMouseLeave={() => setHovered(null)}>
                     <div className="flex items-center gap-2 mb-6">
                         <span className="text-[#FF5C00] font-black">{`</>`}</span>
                         <p className="text-white font-bold">Mi stack tecnológico</p>
                     </div>
-                    <div className="grid grid-cols-4 gap-6">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-4 sm:gap-6">
                         {[
                             { icon: <FaReact size={44} className="text-[#61DAFB]" />, label: 'React' },
                             { icon: <SiNextdotjs size={44} className="text-white" />, label: 'Next.js' },
@@ -174,7 +174,12 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
                             { icon: <FaDocker size={44} className="text-[#2496ED]" />, label: 'Docker' },
                             { icon: <FaAws size={44} className="text-[#FF9900]" />, label: 'AWS' },
                         ].map(({ icon, label }) => (
-                            <div key={label} className="flex flex-col items-center gap-2">{icon}<span className="text-gray-400 text-xs">{label}</span></div>
+                            <div key={label} className="flex flex-col items-center gap-2">
+                                <div className="w-8 h-8 sm:w-11 sm:h-11 [&>svg]:w-full [&>svg]:h-full">
+                                    {icon}
+                                </div>
+                                <span className="text-gray-400 text-xs text-center">{label}</span>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -211,15 +216,15 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
             </div>
 
             {/* BLOQUE 3 — CTA */}
-            <div className="border border-[#1f2026] rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-4 bg-[#0c0d11]/60">
-                <div className="flex items-center gap-4">
+            <div className="border border-[#1f2026] rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-4 bg-[#0c0d11]/60 text-center md:text-left">
+                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
                     <span className="text-[#FF5C00] text-3xl font-black">{`</>`}</span>
                     <div>
                         <p className="text-white font-bold text-lg">¿Te gustaría trabajar juntos?</p>
                         <p className="text-gray-400 text-sm">Estoy siempre abierto a nuevas oportunidades y colaboraciones.</p>
                     </div>
                 </div>
-                <a href="/contacto" className="bg-[#FF5C00] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full flex items-center gap-2 transition-all shrink-0">
+                <a href="/contacto" className="bg-[#FF5C00] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full flex items-center gap-2 transition-all shrink-0 w-full sm:w-auto justify-center">
                     Hablemos →
                 </a>
             </div>
