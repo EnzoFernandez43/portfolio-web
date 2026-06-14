@@ -107,18 +107,23 @@ export default function ProyectoCard({ id, title, subtitle, description, image, 
           </p>
           {/* Iconos con límite y +n */}
           {(() => {
-            const MAX = 9;
-            const visible = techIcons.slice(0, MAX);
-            const extra = techIcons.length - MAX;
+            const MAX_MOBILE = 6;
+            const MAX_DESKTOP = 9;
+            const visible = techIcons.slice(0, MAX_DESKTOP);
+            const extraMobile = techIcons.length - MAX_MOBILE;
+            const extraDesktop = techIcons.length - MAX_DESKTOP;
             return (
               <div className="flex items-center gap-2 pt-3 flex-wrap">
                 {visible.map((icon, i) => (
-                  <div key={i} className="w-6 h-6 text-gray-400 hover:text-white transition-colors shrink-0 [&>svg]:w-full [&>svg]:h-full">
+                  <div key={i} className={`w-6 h-6 text-gray-400 hover:text-white transition-colors shrink-0 [&>svg]:w-full [&>svg]:h-full ${i >= MAX_MOBILE ? 'hidden sm:block' : ''}`}>
                     {icon}
                   </div>
                 ))}
-                {extra > 0 && (
-                  <span className="text-[10px] text-gray-500 font-mono shrink-0">+{extra}</span>
+                {extraMobile > 0 && (
+                  <span className="text-[10px] text-gray-500 font-mono shrink-0 sm:hidden">+{extraMobile}</span>
+                )}
+                {extraDesktop > 0 && (
+                  <span className="text-[10px] text-gray-500 font-mono shrink-0 hidden sm:inline">+{extraDesktop}</span>
                 )}
               </div>
             );
