@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
+  --background: #050507;
   --foreground: #ffffff;
 }
 
-body {
+html, body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: sans-serif;
@@ -15,6 +15,8 @@ body {
   --os-handle-bg: #FF5C00;
   --os-handle-bg-hover: #e05200;
   --os-handle-bg-active: #c94a00;
+  --os-track-bg: transparent;
+  --os-track-bg-hover: transparent;
 }
 
 .os-viewport {
