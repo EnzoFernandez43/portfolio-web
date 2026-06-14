@@ -16,3 +16,7 @@ body {
   --os-handle-bg-hover: #e05200;
   --os-handle-bg-active: #c94a00;
 }
+
+.os-viewport {
+  background: transparent !important;
+}
