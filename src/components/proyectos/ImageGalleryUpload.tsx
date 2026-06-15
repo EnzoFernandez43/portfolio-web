@@ -228,59 +228,7 @@ export default function ImageGalleryUpload({
 
   return (
     <div className="space-y-6">
-      {/* 1. Zona de Drop */}
-      <div
-        onClick={() => !disabled && !isFull && fileInputRef.current?.click()}
-        onDragOver={(e) => {
-          e.preventDefault();
-          setIsDragOver(true);
-        }}
-        onDragLeave={() => setIsDragOver(false)}
-        onDrop={handleDropZoneDrop}
-        className={`
-          border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200
-          ${disabled || isFull ? "cursor-not-allowed opacity-60 border-slate-200 dark:border-slate-800" : "cursor-pointer border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:border-orange-400"}
-          ${!disabled && !isFull && isDragOver ? "border-orange-500 bg-orange-50 dark:bg-orange-900/20 scale-[1.02]" : ""}
-        `}
-      >
-        <input
-          type="file"
-          ref={fileInputRef}
-          className="hidden"
-          multiple
-          accept="image/jpeg,image/png,image/webp,video/mp4,video/webm"
-          onChange={handleFileSelect}
-          disabled={disabled || isFull}
-        />
-        <div className="flex flex-col items-center justify-center gap-3">
-          <div
-            className={`p-3 rounded-full transition-colors ${isDragOver && !isFull ? "bg-orange-100 text-orange-600" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}
-          >
-            <IconUpload />
-          </div>
-          <div>
-            <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
-              {isFull ? "Galería completa" : (isDragOver ? "¡Soltá los archivos acá!" : "Hacé clic o arrastrá fotos y videos")}
-            </p>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Máx. {MAX_IMAGES} fotos (10MB c/u) · {MAX_VIDEOS} video (1 min / {MAX_VIDEO_SIZE_MB}MB)
-            </p>
-            {files.length > 0 && (
-              <span className={`mt-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${
-                isFull
-                  ? 'bg-red-500/10 border-red-500/40 text-red-400'
-                  : files.length >= Math.floor((MAX_IMAGES + MAX_VIDEOS) * 0.7)
-                  ? 'bg-orange-500/10 border-[#FF5C00]/40 text-[#FF5C00]'
-                  : 'bg-white/5 border-white/10 text-gray-400'
-              }`}>
-                {files.length}/{MAX_IMAGES + MAX_VIDEOS}{isFull ? ' · Completo' : ''}
-              </span>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Grilla de Galería */}
+      {/* 1. Grilla de Galería */}
       {files.length > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-in fade-in duration-300">
           {files.map((file, index) => {
@@ -401,6 +349,47 @@ export default function ImageGalleryUpload({
           })}
         </div>
       )}
+
+      {/* 2. Zona de Drop */}
+      <div
+        onClick={() => !disabled && !isFull && fileInputRef.current?.click()}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setIsDragOver(true);
+        }}
+        onDragLeave={() => setIsDragOver(false)}
+        onDrop={handleDropZoneDrop}
+        className={`
+          border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200
+          ${disabled || isFull ? "cursor-not-allowed opacity-60 border-slate-200 dark:border-slate-800" : "cursor-pointer border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:border-orange-400"}
+          ${!disabled && !isFull && isDragOver ? "border-orange-500 bg-orange-50 dark:bg-orange-900/20 scale-[1.02]" : ""}
+        `}
+      >
+        <input
+          type="file"
+          ref={fileInputRef}
+          className="hidden"
+          multiple
+          accept="image/jpeg,image/png,image/webp,video/mp4,video/webm"
+          onChange={handleFileSelect}
+          disabled={disabled || isFull}
+        />
+        <div className="flex flex-col items-center justify-center gap-3">
+          <div
+            className={`p-3 rounded-full transition-colors ${isDragOver && !isFull ? "bg-orange-100 text-orange-600" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}
+          >
+            <IconUpload />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
+              {isFull ? "Galería completa" : (isDragOver ? "¡Soltá los archivos acá!" : "Hacé clic o arrastrá fotos y videos")}
+            </p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Máx. {MAX_IMAGES} fotos (10MB c/u) · {MAX_VIDEOS} video (1 min / {MAX_VIDEO_SIZE_MB}MB)
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* 3. CONSEJO PRO */}
       <div className="flex items-start gap-2 bg-orange-50 dark:bg-orange-900/10 p-3 rounded-lg border border-orange-100 dark:border-orange-800/30">
