@@ -19,7 +19,7 @@ export default async function Page() {
           backgroundImage: 'url(/fondoDePantallaSobreMiMobile.png)',
           backgroundSize: '140%',
           backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center -120px', // ajustá este valor
+          backgroundPosition: 'center -180px', // ajustá este valor
         }}
       />
       <SobreMiSection initialData={data} />
