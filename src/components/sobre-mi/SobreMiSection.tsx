@@ -216,15 +216,20 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
             </div>
 
             {/* BLOQUE 3 — CTA */}
-            <div className="border border-[#1f2026] rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-4 bg-[#0c0d11]/60 text-center md:text-left">
-                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
-                    <span className="text-[#FF5C00] text-3xl font-black">{`</>`}</span>
-                    <div>
-                        <p className="text-white font-bold text-lg">¿Te gustaría trabajar juntos?</p>
-                        <p className="text-gray-400 text-sm">Estoy siempre abierto a nuevas oportunidades y colaboraciones.</p>
-                    </div>
+            <div className="mt-16 relative border border-[#1f2026] rounded-2xl p-8 md:p-10 overflow-hidden bg-[#0c0d11]/60 flex flex-col md:flex-row items-center md:justify-between gap-6 text-center md:text-left">
+                {/* Icono decorativo de fondo */}
+                <span className="absolute -right-4 -top-6 text-[#FF5C00]/10 text-[10rem] font-black leading-none pointer-events-none select-none">
+                    {`</>`}
+                </span>
+
+                <div className="relative z-10 flex flex-col items-center md:items-start gap-2">
+                    <span className="text-[#FF5C00] text-2xl font-black">{`</>`}</span>
+                    <p className="text-white font-bold text-xl md:text-lg">¿Tienes una idea o proyecto en mente?</p>
+                    <p className="text-gray-400 text-sm max-w-sm">Estoy disponible para nuevos desafíos y colaboraciones.</p>
                 </div>
-                <a href="/contacto" className="bg-[#FF5C00] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full flex items-center gap-2 transition-all shrink-0 w-full sm:w-auto justify-center">
+
+                <a href="/contacto"
+                    className="relative z-10 bg-[#FF5C00] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full flex items-center gap-2 transition-all shrink-0 w-full sm:w-auto justify-center">
                     Hablemos →
                 </a>
             </div>
