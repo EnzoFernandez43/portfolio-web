@@ -125,29 +125,29 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
  
       {/* ── Top bar ── */}
       <div className="sticky top-0 z-40 border-b border-[#1a1b22] bg-[#050507]/95 backdrop-blur-sm">
-        <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
           <button
             onClick={() => router.push('/proyectos')}
-            className="flex items-center gap-2 text-[#FF5C00] text-sm hover:text-orange-400 transition-colors"
+            className="flex items-center gap-1.5 text-[#FF5C00] text-xs shrink-0 hover:text-orange-400 transition-colors"
           >
-            <ArrowLeft size={14} /> Volver a proyectos
+            <ArrowLeft size={13} /> Volver
           </button>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => handleSave(false)}
               disabled={saving || publishing}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-[#FF5C00]/40 text-[#FF5C00] text-sm font-medium hover:bg-[#FF5C00]/10 transition-all disabled:opacity-50"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#FF5C00]/40 text-[#FF5C00] text-xs font-medium hover:bg-[#FF5C00]/10 transition-all disabled:opacity-50"
             >
-              <Save size={14} />
-              {saving ? 'Guardando...' : 'Guardar borrador'}
+              <Save size={13} />
+              {saving ? 'Guardando...' : 'Borrador'}
             </button>
             <button
               onClick={() => handleSave(true)}
               disabled={saving || publishing || !form.titulo}
-              className="flex items-center gap-2 px-5 py-2 rounded-lg bg-[#FF5C00] hover:bg-orange-600 text-white text-sm font-semibold transition-all disabled:opacity-50"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#FF5C00] hover:bg-orange-600 text-white text-xs font-semibold transition-all disabled:opacity-50"
             >
-              <Rocket size={14} />
-              {publishing ? 'Publicando...' : 'Publicar proyecto →'}
+              <Rocket size={13} />
+              {publishing ? 'Publicando...' : 'Publicar →'}
             </button>
           </div>
         </div>
