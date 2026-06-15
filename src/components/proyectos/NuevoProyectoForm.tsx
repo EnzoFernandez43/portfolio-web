@@ -153,7 +153,7 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
         </div>
       </div>
  
-      <div className="max-w-5xl mx-auto px-6 py-10">
+      <div className="max-w-5xl mx-auto px-4 py-10">
         <div className="mb-8">
           <h1 className="text-2xl font-black text-white">
             {proyecto ? 'Editar proyecto' : 'Agregar nuevo proyecto'}
@@ -191,7 +191,7 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
                 <span className="text-white font-bold text-sm">Vista previa</span>
               </div>
               <div className="bg-[#080809] border border-[#1a1b22] rounded-xl p-5 flex gap-5 items-start">
-                <div className="w-48 h-28 rounded-lg bg-[#111216] border border-[#1a1b22] overflow-hidden shrink-0 flex items-center justify-center">
+                <div className="w-24 sm:w-48 h-20 sm:h-28 rounded-lg bg-[#111216] border border-[#1a1b22] overflow-hidden shrink-0 flex items-center justify-center">
                   {form.imagen_url
                     ? <img src={form.imagen_url} alt="" className="w-full h-full object-cover" />
                     : <ImageIcon size={24} className="text-white/10" />
