@@ -6,6 +6,7 @@ import { ArrowLeft, Eye, FileText, Save, Rocket, Image as ImageIcon, Plus, X } f
 import { createProyecto, updateProyecto, Proyecto } from '@/actions/proyectos';
 import { getTechIcon } from '@/lib/techIcons';
 import ProyectoEditor, { blocksToHTML, Block } from './ProyectoEditor';
+import MuestraGalleryUpload from './ImageGalleryUpload';
  
 const CATEGORIAS = ['Web Apps', 'APIs', 'Full-Stack', 'Frontend', 'Backend', 'Mobile', 'Otros'];
 const TECNOLOGIAS = ['TypeScript', 'JavaScript', 'React', 'Next.js', 'Node.js', 'MongoDB',
@@ -49,7 +50,8 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [uploadingIdx, setUploadingIdx] = useState<number | null>(null);
+  const [muestraFiles, setMuestraFiles] = useState<File[]>([]);
+  const [muestraError, setMuestraError] = useState('');
   const portadaInputRef = useRef<HTMLInputElement>(null);
  
   const uploadToCloudinary = async (file: File): Promise<string> => {
@@ -74,24 +76,6 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
     e.target.value = ''; // reset
   };
  
-  const handleMuestraUpload = async (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setUploadingIdx(idx);
-    const url = await uploadToCloudinary(file);
-    setForm(f => {
-      const imgs = [...f.imagenes_muestra];
-      imgs[idx] = url;
-      return { ...f, imagenes_muestra: imgs };
-    });
-    setUploadingIdx(null);
-    e.target.value = ''; // reset
-  };
- 
-  const removeMuestra = (idx: number) => {
-    setForm(f => ({ ...f, imagenes_muestra: f.imagenes_muestra.filter((_, i) => i !== idx) }));
-  };
- 
   const toggleArray = (key: 'tecnologias' | 'categoria', val: string) =>
     setForm(f => ({
       ...f,
@@ -102,8 +86,14 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
     const setter = publish ? setPublishing : setSaving;
     setter(true);
     try {
+      // Subir archivos nuevos a Cloudinary
+      const uploadedUrls = await Promise.all(
+        muestraFiles.map(file => uploadToCloudinary(file))
+      );
+  
       const payload = {
         ...form,
+        imagenes_muestra: uploadedUrls,
         descripcion: blocksToHTML(blocks),
         destacado: publish ? form.destacado : false,
       };
@@ -117,8 +107,6 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
       setter(false);
     }
   };
- 
-  const muestraSlots = [...form.imagenes_muestra, ...Array(Math.max(0, 6 - form.imagenes_muestra.length)).fill('')].slice(0, 6);
  
   return (
     <div className="min-h-screen bg-[#050507] text-white pt-0" style={{ fontFamily: 'var(--font-barlow)' }}>
@@ -284,32 +272,14 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
                   <input ref={portadaInputRef} type="file" accept="image/*" onChange={handlePortadaUpload} className="hidden" />
                 </Field>
  
-                {/* Imágenes de muestra */}
-                <div>
-                  <label className="block text-sm text-gray-300 font-medium mb-2">Imágenes de muestra</label>
-                  <div className="grid grid-cols-6 gap-2">
-                    {muestraSlots.map((url, idx) => (
-                      <div key={idx} className="relative aspect-video">
-                        {url
-                          ? <>
-                              <img src={url} alt="" className="w-full h-full object-cover rounded-lg border border-[#1a1b22]" />
-                              <button onClick={() => removeMuestra(idx)}
-                                className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-black border border-white/20 flex items-center justify-center text-gray-400 hover:text-white transition-colors">
-                                <X size={10} />
-                              </button>
-                            </>
-                          : <label className="w-full h-full flex flex-col items-center justify-center bg-[#080809] border border-dashed border-[#1a1b22] rounded-lg cursor-pointer hover:border-[#FF5C00]/30 transition-all gap-1">
-                              {uploadingIdx === idx
-                                ? <span className="text-[10px] text-gray-500">...</span>
-                                : <><Plus size={14} className="text-white/20" /><span className="text-[10px] text-gray-600">Agregar</span></>
-                              }
-                              <input type="file" accept="image/*" onChange={e => handleMuestraUpload(e, idx)} className="hidden" />
-                            </label>
-                        }
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-gray-600 text-xs mt-2">Máximo 6 · JPG, PNG, WebP · Máx 5MB cada una.</p>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-sm text-gray-300 font-medium">Imágenes de muestra</label>
+                  {muestraError && <p className="text-red-400 text-xs">{muestraError}</p>}
+                  <MuestraGalleryUpload
+                    files={muestraFiles}
+                    onChange={setMuestraFiles}
+                    onError={setMuestraError}
+                  />
                 </div>
  
                 <Field label="Categoría" required>
