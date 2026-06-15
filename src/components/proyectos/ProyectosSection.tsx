@@ -29,9 +29,10 @@ export default function ProyectosSection({ proyectos: initial }: { proyectos: Pr
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-start justify-between mb-10 gap-6">
         <div>
-          <h2 className="text-5xl font-black text-white uppercase" style={{ fontFamily: 'var(--font-bebas)' }}>
-            MIS <span className="text-[#FF5C00]">PROYECTOS</span>
-          </h2>
+          <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl font-black uppercase leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>
+            <span className="text-white">MIS</span><br />
+            <span className="text-[#FF5C00]">PROYECTOS</span>
+          </h1>
           <div className="w-16 h-1 bg-[#FF5C00] mt-3" />
           <p className="text-gray-400 mt-3 max-w-md" style={{ fontFamily: 'var(--font-barlow)' }}>
             Una selección de proyectos en los que he trabajado, solucionando problemas reales con código y creatividad.

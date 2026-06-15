@@ -123,12 +123,12 @@ export default function ContactoSection() {
     }`;
 
   return (
-    <section className="min-h-screen pt-[112px] pb-16 px-6 max-w-6xl mx-auto">
+    <section className="min-h-screen pt-[112px] pb-16 px-4 sm:px-6 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 
         {/* COLUMNA IZQUIERDA */}
         <div>
-          <h1 className="text-6xl font-black uppercase leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>
+          <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl font-black uppercase leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>
             <span className="text-white">HABLEMOS</span><br />
             <span className="text-[#FF5C00]">DE TU PROYECTO</span>
           </h1>
@@ -175,13 +175,13 @@ export default function ContactoSection() {
 
         {/* COLUMNA DERECHA */}
         <div className="flex flex-col gap-4">
-          <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-8">
+          <div className="bg-[#0c0d11] border border-[#1f2026] rounded-2xl p-5 sm:p-8">
             <span className="text-[#FF5C00] font-black text-xl">{`</>`}</span>
             <h2 className="text-white font-bold text-xl mt-2">Envíame un mensaje</h2>
             <p className="text-gray-400 text-sm mb-6">Completa el formulario y me pondré en contacto contigo.</p>
 
             <div className="flex flex-col gap-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-4">
                 <div>
                   <label className="text-white text-sm font-medium block mb-1">Nombre</label>
                   <input type="text" value={form.nombre}
@@ -270,7 +270,7 @@ export default function ContactoSection() {
               {sendError && <p className="text-red-400 text-xs font-mono">{sendError}</p>}
 
               <button onClick={handleSubmit} disabled={sending}
-                className="bg-[#FF5C00] hover:bg-orange-600 disabled:opacity-50 text-white font-semibold px-6 py-3 rounded-full flex items-center gap-2 transition-all w-fit">
+                className="bg-[#FF5C00] hover:bg-orange-600 disabled:opacity-50 text-white font-semibold px-6 py-3 rounded-full flex items-center gap-2 transition-all w-full sm:w-fit justify-center">
                 {sending ? 'Enviando...' : 'Enviar mensaje'} <Send size={16} />
               </button>
             </div>

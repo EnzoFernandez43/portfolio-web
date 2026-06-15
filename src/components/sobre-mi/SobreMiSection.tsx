@@ -85,10 +85,10 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
             {/* BLOQUE 1 */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] gap-8 items-start">
                 <div>
-                    <h1 className="text-6xl md:text-7xl font-black uppercase leading-none mb-4" style={{ fontFamily: 'var(--font-bebas)' }}>
-                        <span className="text-white">ENZO</span><br />
-                        <span className="text-[#FF5C00]">FERNANDEZ</span>
-                    </h1>
+                    <h1 className="text-4xl min-[400px]:text-5xl sm:text-6xl font-black uppercase leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>
+            <span className="text-white">ENZO</span><br />
+            <span className="text-[#FF5C00]">FERNÁNDEZ</span>
+          </h1>
                     <p className="text-gray-400 text-base leading-relaxed mb-8 max-w-full md:max-w-xs" style={{ fontFamily: 'var(--font-barlow)' }}>
                         Desarrollador Full-Stack con pasión por crear soluciones digitales que generan impacto real.
                     </p>
