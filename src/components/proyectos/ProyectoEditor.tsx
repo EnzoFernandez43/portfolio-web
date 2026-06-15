@@ -181,16 +181,16 @@ function ImageBlock({
   };
 
   const alignClass: Record<string, string> = {
-    'izquierda':    'mr-auto',
-    'centro':       'mx-auto',
-    'derecha':      'ml-auto',
-    'completo':     'w-full',
+    'izquierda': 'mr-auto',
+    'centro': 'mx-auto',
+    'derecha': 'ml-auto',
+    'completo': 'w-full',
     'flotante-izq': 'float-left mr-4 mb-2',
     'flotante-der': 'float-right ml-4 mb-2',
   };
 
   const sizeClass: Record<string, string> = {
-    'completo':     'w-full',
+    'completo': 'w-full',
     'flotante-izq': 'w-1/2',
     'flotante-der': 'w-1/2',
   };
@@ -207,11 +207,10 @@ function ImageBlock({
             key={a}
             type="button"
             onClick={() => onChange({ imageAlign: a })}
-            className={`px-2 py-1 rounded text-[10px] font-mono border transition-all ${
-              block.imageAlign === a
+            className={`px-2 py-1 rounded text-[10px] font-mono border transition-all ${block.imageAlign === a
                 ? 'border-[#FF5C00] text-[#FF5C00] bg-[#FF5C00]/10'
                 : 'border-white/10 text-gray-500 hover:border-white/20'
-            }`}
+              }`}
           >
             {a}
           </button>
@@ -313,11 +312,10 @@ function ImageGridBlock({
                           key={s}
                           type="button"
                           onClick={() => updateImage(idx, { span: s })}
-                          className={`px-2 py-0.5 rounded text-[10px] font-mono border transition-all ${
-                            img.span === s
+                          className={`px-2 py-0.5 rounded text-[10px] font-mono border transition-all ${img.span === s
                               ? 'border-[#FF5C00] text-[#FF5C00] bg-[#FF5C00]/20'
                               : 'border-white/30 text-white/70 hover:border-white/60'
-                          }`}
+                            }`}
                         >
                           {SPAN_LABELS[s]}
                         </button>
@@ -346,9 +344,9 @@ function ImageGridBlock({
                   {uploadingIdx === idx
                     ? <span className="text-[10px] text-gray-500">Subiendo...</span>
                     : <>
-                        <Plus size={16} className="text-white/20" />
-                        <span className="text-[10px] text-gray-600">Agregar</span>
-                      </>
+                      <Plus size={16} className="text-white/20" />
+                      <span className="text-[10px] text-gray-600">Agregar</span>
+                    </>
                   }
                 </div>
               )}
@@ -573,18 +571,18 @@ export default function ProyectoEditor({ value, onChange, uploadFn }: ProyectoEd
             </div>
 
             {/* Block content */}
-            <div className="flex-1 min-w-0 relative">
+            <div className="flex-1 min-w-0">
 
               {/* Block type picker (top of focused text block) */}
               {isFocused && isTextBlock && (
-                <div className="absolute -top-8 left-0 flex items-center gap-1 z-10">
+                <div className="flex items-center gap-1 mb-2 flex-wrap">
                   <div className="relative">
                     <button
                       type="button"
                       onClick={() => setMenuOpenId(menuOpenId === block.id ? null : block.id)}
                       className="flex items-center gap-1 px-2 py-1 rounded bg-[#0c0d11] border border-[#2a2b35] text-gray-400 text-[10px] hover:text-white hover:border-[#FF5C00]/40 transition-all"
                     >
-                      {BLOCK_MENU.find(m => m.type === block.type)?.label ?? 'Texto'}
+                      <span className="hidden sm:inline">{BLOCK_MENU.find(m => m.type === block.type)?.label ?? 'Texto'}</span>
                       <ChevronDown size={10} />
                     </button>
                     {menuOpenId === block.id && (
