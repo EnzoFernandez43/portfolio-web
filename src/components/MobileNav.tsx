@@ -13,7 +13,7 @@ const links = [
 
 export default function MobileNav() {
   const pathname = usePathname();
-  const hidden = pathname.startsWith('/detalleproyecto/');
+  const hidden = pathname.startsWith('/detalleproyecto/') || pathname.startsWith('/proyectos/nuevo') || pathname.startsWith('/proyectos/editar');
   if (hidden) return null;
 
   return (
