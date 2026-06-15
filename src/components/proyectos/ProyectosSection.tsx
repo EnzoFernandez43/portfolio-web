@@ -79,7 +79,7 @@ export default function ProyectosSection({ proyectos: initial }: { proyectos: Pr
       </div>
 
       {/* CTA */}
-      <div className="mt-16 relative border border-[#1f2026] rounded-2xl p-8 md:p-10 overflow-hidden bg-[#0c0d11]/60 flex flex-col md:flex-row items-center md:justify-between gap-6 text-center md:text-left">
+      <div className="mt-16 mb-10 relative border border-[#1f2026] rounded-2xl p-8 md:p-10 overflow-hidden bg-[#0c0d11]/60 flex flex-col md:flex-row items-center md:justify-between gap-6 text-center md:text-left">
         {/* Icono decorativo de fondo */}
         <span className="absolute -right-4 -top-6 text-[#FF5C00]/10 text-[10rem] font-black leading-none pointer-events-none select-none">
           {`</>`}
