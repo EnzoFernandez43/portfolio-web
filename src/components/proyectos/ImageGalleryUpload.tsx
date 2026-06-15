@@ -133,7 +133,6 @@ export default function ImageGalleryUpload({
       }
 
       if (!isVideo && currentImages + validFiles.filter(f => !f.type.startsWith('video/')).length >= MAX_IMAGES) {
-        errorMsg = `Máximo ${MAX_IMAGES} imágenes en total.`;
         continue;
       }
 

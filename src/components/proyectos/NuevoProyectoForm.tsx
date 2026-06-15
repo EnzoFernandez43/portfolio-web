@@ -179,7 +179,7 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
                 <span className="text-white font-bold text-sm">Vista previa</span>
               </div>
               <div className="bg-[#080809] border border-[#1a1b22] rounded-xl overflow-hidden max-w-[280px]">
-                <div className="w-full h-40 bg-[#111216] flex items-center justify-center overflow-hidden">
+                <div className="w-full h-56 sm:h-64 bg-[#111216] flex items-center justify-center overflow-hidden">
                   {form.imagen_url
                     ? <img src={form.imagen_url} alt="" className="w-full h-full object-cover" />
                     : <ImageIcon size={28} className="text-white/10" />
