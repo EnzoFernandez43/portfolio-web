@@ -71,6 +71,7 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
     const url = await uploadToCloudinary(file);
     setForm(f => ({ ...f, imagen_url: url }));
     setUploading(false);
+    e.target.value = ''; // reset
   };
  
   const handleMuestraUpload = async (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
@@ -84,6 +85,7 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
       return { ...f, imagenes_muestra: imgs };
     });
     setUploadingIdx(null);
+    e.target.value = ''; // reset
   };
  
   const removeMuestra = (idx: number) => {
@@ -252,20 +254,32 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
                 </Field>
  
                 <Field label="Imagen de portada" required>
-                  <div
-                    onClick={() => portadaInputRef.current?.click()}
-                    className="w-full bg-[#080809] border-2 border-dashed border-[#1a1b22] rounded-xl p-8 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-[#FF5C00]/30 hover:bg-[#FF5C00]/5 transition-all group min-h-[120px]"
-                  >
-                    {form.imagen_url
-                      ? <img src={form.imagen_url} alt="" className="max-h-32 rounded-lg object-contain" />
-                      : <>
-                          <ImageIcon size={28} className="text-white/20 group-hover:text-[#FF5C00]/40 transition-colors" />
-                          <p className="text-gray-500 text-sm text-center">
-                            {uploading ? 'Subiendo...' : 'Haz clic para seleccionar imagen de portada'}
-                          </p>
-                          <p className="text-gray-600 text-xs">Recomendado: 1200×630px · Máx 5MB</p>
-                        </>
-                    }
+                  <div className="relative">
+                    <div
+                      onClick={() => portadaInputRef.current?.click()}
+                      className="w-full bg-[#080809] border-2 border-dashed border-[#1a1b22] rounded-xl p-8 flex flex-col items-center justify-center gap-3 cursor-pointer hover:border-[#FF5C00]/30 hover:bg-[#FF5C00]/5 transition-all group min-h-[120px]"
+                    >
+                      {form.imagen_url
+                        ? <img src={form.imagen_url} alt="" className="max-h-32 rounded-lg object-contain" />
+                        : <>
+                            <ImageIcon size={28} className="text-white/20 group-hover:text-[#FF5C00]/40 transition-colors" />
+                            <p className="text-gray-500 text-sm text-center">
+                              {uploading ? 'Subiendo...' : 'Haz clic para seleccionar imagen de portada'}
+                            </p>
+                            <p className="text-gray-600 text-xs">Recomendado: 1200×630px · Máx 5MB</p>
+                          </>
+                      }
+                    </div>
+
+                    {form.imagen_url && (
+                      <button
+                        type="button"
+                        onClick={e => { e.stopPropagation(); setForm(f => ({ ...f, imagen_url: '' })); }}
+                        className="absolute top-2 right-2 w-6 h-6 rounded-full bg-black border border-white/20 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+                      >
+                        <X size={12} />
+                      </button>
+                    )}
                   </div>
                   <input ref={portadaInputRef} type="file" accept="image/*" onChange={handlePortadaUpload} className="hidden" />
                 </Field>
