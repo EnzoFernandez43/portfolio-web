@@ -80,7 +80,7 @@ export default function SobreMiSection({ initialData }: { initialData: Record<st
     });
 
     return (
-        <section className="min-h-screen pt-110 md:pt-[112px] pb-16 px-6 max-w-6xl mx-auto flex flex-col gap-8">
+        <section className="min-h-screen pt-95 md:pt-[112px] pb-16 px-6 max-w-6xl mx-auto flex flex-col gap-8">
 
             {/* BLOQUE 1 */}
             <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] gap-8 items-start">

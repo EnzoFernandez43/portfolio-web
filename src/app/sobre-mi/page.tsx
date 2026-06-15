@@ -17,9 +17,9 @@ export default async function Page() {
         className="md:hidden absolute top-0 left-0 w-full h-full -z-10"
         style={{
           backgroundImage: 'url(/fondoDePantallaSobreMiMobile.png)',
-          backgroundSize: 'contain',
+          backgroundSize: '140%',
           backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center 30px', // ajustá este valor
+          backgroundPosition: 'center -120px', // ajustá este valor
         }}
       />
       <SobreMiSection initialData={data} />
