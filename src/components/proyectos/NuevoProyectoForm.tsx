@@ -185,12 +185,12 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
           <div className="flex-1 flex flex-col gap-6">
  
             {/* Preview card */}
-            <div className="bg-[#0c0d11] border border-[#1a1b22] rounded-2xl p-6">
+            <div className="bg-[#0c0d11] border border-[#1a1b22] rounded-2xl p-4 sm:p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Eye size={16} className="text-[#FF5C00]" />
                 <span className="text-white font-bold text-sm">Vista previa</span>
               </div>
-              <div className="bg-[#080809] border border-[#1a1b22] rounded-xl p-5 flex gap-5 items-start">
+              <div className="bg-[#080809] border border-[#1a1b22] rounded-xl p-3 sm:p-5 flex gap-3 sm:gap-5 items-start">
                 <div className="w-24 sm:w-48 h-20 sm:h-28 rounded-lg bg-[#111216] border border-[#1a1b22] overflow-hidden shrink-0 flex items-center justify-center">
                   {form.imagen_url
                     ? <img src={form.imagen_url} alt="" className="w-full h-full object-cover" />
@@ -224,7 +224,7 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
             </div>
  
             {/* Información básica */}
-            <div className="bg-[#0c0d11] border border-[#1a1b22] rounded-2xl p-6">
+            <div className="bg-[#0c0d11] border border-[#1a1b22] rounded-2xl p-4 sm:p-6">
               <div className="flex items-center gap-2 mb-6">
                 <FileText size={16} className="text-[#FF5C00]" />
                 <span className="text-white font-bold text-sm">Información básica</span>
@@ -327,7 +327,7 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
                   </div>
                 </Field>
  
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <Field label="GitHub URL">
                     <input type="url" placeholder="https://github.com/..." value={form.github_url}
                       onChange={e => setForm(f => ({ ...f, github_url: e.target.value }))}
@@ -365,7 +365,7 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
             </div>
  
             {/* ── Bloque editor ── */}
-            <div className="bg-[#0c0d11] border border-[#1a1b22] rounded-2xl p-6">
+            <div className="bg-[#0c0d11] border border-[#1a1b22] rounded-2xl p-4 sm:p-6">
               <div className="flex items-center gap-2 mb-1">
                 <FileText size={16} className="text-[#FF5C00]" />
                 <span className="text-white font-bold text-sm">Contenido del proyecto</span>
@@ -382,7 +382,7 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
             </div>
  
             {/* Bottom actions */}
-            <div className="flex justify-end gap-3 pb-10">
+            <div className="flex flex-col sm:flex-row justify-end gap-3 pb-10">
               <button onClick={() => handleSave(false)} disabled={saving || publishing}
                 className="flex items-center gap-2 px-5 py-3 rounded-xl border border-[#FF5C00]/40 text-[#FF5C00] text-sm font-medium hover:bg-[#FF5C00]/10 transition-all disabled:opacity-50">
                 <Save size={15} />
