@@ -12,14 +12,16 @@ export default async function Page() {
         className="hidden md:block absolute inset-0 w-full h-full object-cover pointer-events-none -z-10"
         style={{ transform: 'scale(0.5) translateY(-50%)' }}
       />
-      {/* Mobile: absoluta, no empuja el contenido */}
-      <div className="md:hidden absolute top-0 left-0 w-full h-[420px] overflow-hidden -z-10">
-        <img
-          src="/fondoDePantallaSobreMiMobile.png"
-          alt=""
-          className="w-full h-full object-cover object-top scale-125"
-        />
-      </div>
+      {/* Mobile */}
+      <div
+        className="md:hidden absolute top-0 left-0 w-full h-full -z-10"
+        style={{
+          backgroundImage: 'url(/fondoDePantallaSobreMiMobile.png)',
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center 30px', // ajustá este valor
+        }}
+      />
       <SobreMiSection initialData={data} />
     </main>
   );
