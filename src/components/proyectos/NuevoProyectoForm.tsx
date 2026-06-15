@@ -277,13 +277,13 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
                     <label className="text-sm text-gray-300 font-medium">Imágenes de muestra</label>
                     {muestraFiles.length > 0 && (
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold border ${
-                        muestraFiles.length >= 14
+                        muestraFiles.length >= 13
                           ? 'bg-red-500/10 border-red-500/40 text-red-400'
-                          : muestraFiles.length >= 10
+                          : muestraFiles.length >= 8
                           ? 'bg-orange-500/10 border-[#FF5C00]/40 text-[#FF5C00]'
                           : 'bg-white/5 border-white/10 text-gray-400'
                       }`}>
-                        {muestraFiles.length}/14
+                        {muestraFiles.length}/12
                       </span>
                     )}
                   </div>

@@ -18,20 +18,6 @@ const IconUpload = () => (
     />
   </svg>
 );
-const IconStar = ({ className }: { className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className || "w-4 h-4"}
-  >
-    <path
-      fillRule="evenodd"
-      d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-      clipRule="evenodd"
-    />
-  </svg>
-);
 const IconTrash = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +45,7 @@ interface ImageGalleryUploadProps {
 
 // CONFIGURACIÓN DE LÍMITES
 const MAX_VIDEOS = 1;
-const MAX_IMAGES = 13; // 1 portada + 12 adicionales
+const MAX_IMAGES = 12; // 1 portada + 12 adicionales
 const MAX_VIDEO_SIZE_MB = 50;
 const MAX_IMAGE_SIZE_MB = 10;
 
@@ -232,13 +218,12 @@ export default function ImageGalleryUpload({
       {files.length > 0 && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 animate-in fade-in duration-300">
           {files.map((file, index) => {
-            const isCover = index === 0;
             const isVideo = file.type.startsWith("video/");
 
             return (
               <div
                 key={`${file.name}-${index}`}
-                draggable={!isVideo} // 🔥 Evitamos que el usuario intente arrastrar el video
+                draggable={!isVideo}
                 onDragStart={(e) => handleDragStart(e, index)}
                 onDragOver={(e) => {
                   e.preventDefault();
@@ -250,12 +235,7 @@ export default function ImageGalleryUpload({
                     activeOverlayIndex === index ? null : index,
                   )
                 }
-                className={`
-                  relative group rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm select-none
-                  ${isVideo ? "cursor-default" : "cursor-move"}
-                  ${isCover ? "col-span-2 row-span-2 aspect-square md:aspect-auto ring-2 ring-offset-2 ring-orange-500 dark:ring-offset-slate-900" : "aspect-square"}
-                  transition-all hover:shadow-md
-                `}
+                className="relative group rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm select-none aspect-square cursor-move transition-all hover:shadow-md"
               >
                 {/* RENDERIZADO CONDICIONAL: IMAGEN O VIDEO */}
                 {isVideo ? (
@@ -322,14 +302,14 @@ export default function ImageGalleryUpload({
                 <div className={`absolute inset-0 flex flex-col justify-between p-2 transition-opacity duration-200 pointer-events-none
                   ${activeOverlayIndex === index ? "opacity-100" : "opacity-0 lg:group-hover:opacity-100"}
                 `}>
-                  {!isCover && !isVideo && (
+                  {!isVideo && (
                     <div className="text-center">
                       <span className="inline-block px-2 py-1 bg-black/60 text-white text-[10px] font-medium rounded-md backdrop-blur-sm">
-                        Arrastrá a portada
+                        Arrastrá para reordenar
                       </span>
                     </div>
                   )}
-                  {!isCover && isVideo && (
+                  {isVideo && (
                     <div className="text-center">
                       <span className="inline-block px-2 py-1 bg-black/60 text-white text-[10px] font-medium rounded-md backdrop-blur-sm flex items-center justify-center gap-1">
                         <LuInfo className="w-3 h-3" /> Posición Fija
@@ -337,13 +317,6 @@ export default function ImageGalleryUpload({
                     </div>
                   )}
                 </div>
-
-                {isCover && (
-                  <div className="absolute top-3 left-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-yellow-600 dark:text-yellow-400 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1.5 border border-yellow-200 dark:border-yellow-900/50 pointer-events-none">
-                    <IconStar className="w-3.5 h-3.5 text-yellow-500" />
-                    Portada Principal
-                  </div>
-                )}
               </div>
             );
           })}
