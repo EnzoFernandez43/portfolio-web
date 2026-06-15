@@ -50,8 +50,13 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
   const [saving, setSaving] = useState(false);
   const [publishing, setPublishing] = useState(false);
   const [uploading, setUploading] = useState(false);
+  
+  // Reemplazado para manejar la subida inmediata
   const [muestraFiles, setMuestraFiles] = useState<File[]>([]);
+  const [muestraUrls, setMuestraUrls] = useState<string[]>(proyecto?.imagenes_muestra ?? []);
+  const [uploadingMuestra, setUploadingMuestra] = useState(false);
   const [muestraError, setMuestraError] = useState('');
+  
   const portadaInputRef = useRef<HTMLInputElement>(null);
  
   const uploadToCloudinary = async (file: File): Promise<string> => {
@@ -81,19 +86,31 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
       ...f,
       [key]: f[key].includes(val) ? f[key].filter(v => v !== val) : [...f[key], val],
     }));
+
+  const handleMuestraChange = async (newFiles: File[]) => {
+    setMuestraFiles(newFiles);
+    
+    // Subir solo los archivos nuevos (que no tenían URL previa)
+    const prevCount = muestraUrls.length;
+    if (newFiles.length > prevCount) {
+      setUploadingMuestra(true);
+      const toUpload = newFiles.slice(prevCount);
+      const newUrls = await Promise.all(toUpload.map(f => uploadToCloudinary(f)));
+      setMuestraUrls(prev => [...prev, ...newUrls]);
+      setUploadingMuestra(false);
+    } else {
+      // El usuario eliminó archivos — sincronizar URLs
+      setMuestraUrls(prev => prev.slice(0, newFiles.length));
+    }
+  };
  
   const handleSave = async (publish: boolean) => {
     const setter = publish ? setPublishing : setSaving;
     setter(true);
     try {
-      // Subir archivos nuevos a Cloudinary
-      const uploadedUrls = await Promise.all(
-        muestraFiles.map(file => uploadToCloudinary(file))
-      );
-  
       const payload = {
         ...form,
-        imagenes_muestra: uploadedUrls,
+        imagenes_muestra: muestraUrls,
         descripcion: blocksToHTML(blocks),
         destacado: publish ? form.destacado : false,
       };
@@ -107,9 +124,19 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
       setter(false);
     }
   };
+
+  const isBlocking = uploadingMuestra || saving || publishing;
  
   return (
     <div className="min-h-screen bg-[#050507] text-white pt-0" style={{ fontFamily: 'var(--font-barlow)' }}>
+      {isBlocking && (
+        <div className="fixed inset-0 z-[999] bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center gap-4">
+          <div className="w-10 h-10 rounded-full border-2 border-[#FF5C00] border-t-transparent animate-spin" />
+          <p className="text-white text-sm font-medium">
+            {uploadingMuestra ? 'Subiendo imágenes...' : publishing ? 'Publicando proyecto...' : 'Guardando...'}
+          </p>
+        </div>
+      )}
  
       {/* ── Top bar ── */}
       <div className="sticky top-0 z-40 border-b border-[#1a1b22] bg-[#050507]/95 backdrop-blur-sm">
@@ -290,7 +317,7 @@ export default function NuevoProyectoForm({ proyecto }: { proyecto?: Proyecto & 
                   {muestraError && <p className="text-red-400 text-xs">{muestraError}</p>}
                   <MuestraGalleryUpload
                     files={muestraFiles}
-                    onChange={setMuestraFiles}
+                    onChange={handleMuestraChange}
                     onError={setMuestraError}
                   />
                 </div>
