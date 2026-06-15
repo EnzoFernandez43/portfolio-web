@@ -265,6 +265,17 @@ export default function ImageGalleryUpload({
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               Máx. {MAX_IMAGES} fotos (10MB c/u) · {MAX_VIDEOS} video (1 min / {MAX_VIDEO_SIZE_MB}MB)
             </p>
+            {files.length > 0 && (
+              <span className={`mt-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${
+                isFull
+                  ? 'bg-red-500/10 border-red-500/40 text-red-400'
+                  : files.length >= Math.floor((MAX_IMAGES + MAX_VIDEOS) * 0.7)
+                  ? 'bg-orange-500/10 border-[#FF5C00]/40 text-[#FF5C00]'
+                  : 'bg-white/5 border-white/10 text-gray-400'
+              }`}>
+                {files.length}/{MAX_IMAGES + MAX_VIDEOS}{isFull ? ' · Completo' : ''}
+              </span>
+            )}
           </div>
         </div>
       </div>
