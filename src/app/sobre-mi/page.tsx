@@ -6,11 +6,24 @@ export default async function Page() {
   return (
     <main className="relative min-h-screen z-0">
       {/* Desktop */}
-      <img
-        src="/fondoDePantallaSobreMi.png"
-        alt=""
-        className="hidden md:block absolute inset-0 w-full h-full object-cover pointer-events-none -z-10"
-        style={{ transform: 'scale(0.5) translateY(-50%)' }}
+      <style>{`
+  .bg-desktop {
+    background-size: 150%;
+    background-position: center 30px;
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .bg-desktop {
+      background-size: 110%;   /* ajustá este % para achicar */
+      background-position: center 30px;
+    }
+  }
+`}</style>
+      <div
+        className="bg-desktop hidden md:block absolute inset-0 w-full h-full -z-10"
+        style={{
+          backgroundImage: 'url(/fondoDePantallaSobreMi.png)',
+          backgroundRepeat: 'no-repeat',
+        }}
       />
       {/* Mobile */}
       <style>{`
