@@ -13,13 +13,29 @@ export default async function Page() {
         style={{ transform: 'scale(0.5) translateY(-50%)' }}
       />
       {/* Mobile */}
+      <style>{`
+  .bg-mobile {
+    background-position: center -150px;
+    background-size: 140%;
+  }
+  @media (min-width: 375px) {
+    .bg-mobile {
+      background-position: center -180px;
+      background-size: 140%;
+    }
+  }
+  @media (min-width: 425px) {
+    .bg-mobile {
+      background-position: center -180px;
+      background-size: 595px; /* 425px * 1.4 = tamaño fijo desde acá */
+    }
+  }
+`}</style>
       <div
-        className="md:hidden absolute top-0 left-0 w-full h-full -z-10"
+        className="bg-mobile md:hidden absolute top-0 left-0 w-full h-full -z-10"
         style={{
           backgroundImage: 'url(/fondoDePantallaSobreMiMobile.png)',
-          backgroundSize: '140%',
           backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center -150px', // ajustá este valor
         }}
       />
       <SobreMiSection initialData={data} />
