@@ -17,7 +17,7 @@ export default function MobileNav() {
   if (hidden) return null;
 
   return (
-    <nav className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%]">
+    <nav className="min-[900px]:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%]">
       <div className="bg-black/70 backdrop-blur-xl border border-white/10 rounded-2xl px-1 py-2 flex items-center"
         style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,92,0,0.08)' }}>
         {links.map(({ href, label, icon: Icon }) => {

@@ -117,8 +117,8 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${lightboxOpen ? 'opacity-0 pointer-events-none' : ''} ${scrolled ? 'bg-black/40 backdrop-blur-xl border-b border-white/10' : 'bg-transparent border-b border-transparent'} md:bg-transparent max-md:bg-black/50 max-md:backdrop-blur-xl max-md:border-b max-md:border-white/10`}>
-                <div className="w-full px-8 md:px-16 h-[72px] grid grid-cols-[1fr_auto_1fr] items-center">
+            <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${lightboxOpen ? 'opacity-0 pointer-events-none' : ''} ${scrolled ? 'bg-black/40 backdrop-blur-xl border-b border-white/10' : 'bg-transparent border-b border-transparent'} min-[900px]:bg-transparent max-[899px]:bg-black/50 max-[899px]:backdrop-blur-xl max-[899px]:border-b max-[899px]:border-white/10`}>
+                <div className="w-full px-8 min-[900px]:px-16 h-[72px] flex items-center min-[900px]:grid min-[900px]:grid-cols-[1fr_auto_1fr]">
 
                     {/* Logo con botón secreto embebido */}
                     <div className="flex items-center gap-3">
@@ -142,7 +142,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Centro */}
-                    <div className="hidden md:flex items-center lg:gap-10 md:gap-6">
+                    <div className="hidden min-[900px]:flex items-center lg:gap-10 gap-6">
                         {links.map(({ href, label }) => {
                             const active = pathname === href;
                             return (
@@ -159,7 +159,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Derecha */}
-                    <div className="hidden md:flex items-center gap-4 justify-end">
+                    <div className="hidden min-[900px]:flex items-center gap-4 justify-end">
                         <a href="https://github.com" target="_blank" rel="noopener noreferrer"
                             className="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center text-white hover:border-[#FF5C00] hover:text-[#FF5C00] transition-all">
                             <FaGithub size={18} />
