@@ -38,10 +38,10 @@ export default function ProyectosSection({ proyectos: initial }: { proyectos: Pr
             Una selección de proyectos en los que he trabajado, solucionando problemas reales con código y creatividad.
           </p>
         </div>
-        <div className="flex flex-wrap gap-2 pt-2">
+        <div className="flex gap-2 pt-2 overflow-x-auto scrollbar-hide pb-1">
           {CATEGORIAS.map(cat => (
             <button key={cat} onClick={() => setFiltro(cat)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${filtro === cat ? 'bg-transparent border-[#FF5C00] text-white' : 'border-[#2a2b33] text-gray-400 hover:border-gray-500'}`}>
+              className={`shrink-0 whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${filtro === cat ? 'bg-transparent border-[#FF5C00] text-white' : 'border-[#2a2b33] text-gray-400 hover:border-gray-500'}`}>
               {cat}
             </button>
           ))}
@@ -49,7 +49,7 @@ export default function ProyectosSection({ proyectos: initial }: { proyectos: Pr
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch max-w-[420px] md:max-w-none mx-auto">
         {filtrados.map((p) => (
           <ProyectoCard
             key={p.id}
