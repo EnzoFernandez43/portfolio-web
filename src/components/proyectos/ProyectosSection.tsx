@@ -38,7 +38,7 @@ export default function ProyectosSection({ proyectos: initial }: { proyectos: Pr
             Una selección de proyectos en los que he trabajado, solucionando problemas reales con código y creatividad.
           </p>
         </div>
-        <div className="flex gap-2 pt-2 overflow-x-auto scrollbar-hide pb-1">
+        <div className="flex flex-wrap gap-2 pt-2">
           {CATEGORIAS.map(cat => (
             <button key={cat} onClick={() => setFiltro(cat)}
               className={`shrink-0 whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-medium border transition-all ${filtro === cat ? 'bg-transparent border-[#FF5C00] text-white' : 'border-[#2a2b33] text-gray-400 hover:border-gray-500'}`}>
