@@ -19,7 +19,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-12 px-6 max-w-6xl w-full z-10">
           {/* Columna Izquierda */}
-          <div className="flex flex-col justify-center gap-2 mt-[90vw] md:mt-16 pb-18 md:pb-0">
+          <div className="flex flex-col justify-center gap-2 mt-[380px] md:mt-16 pb-18 md:pb-0">
             <div>
               <h1 className="text-6xl md:text-7xl text-white leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Enzo</h1>
               <h1 className="text-[4.5rem] md:text-[6rem] text-[#FF5C00] leading-none" style={{ fontFamily: 'var(--font-bebas)' }}>Fernandez</h1>
