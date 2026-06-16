@@ -11,7 +11,7 @@ export default async function Page() {
     background-size: 150%;
     background-position: center 30px;
   }
-  @media (min-width: 768px) and (max-width: 1024px) {
+  @media (min-width: 768px) and (max-width: 2560px) {
     .bg-desktop {
       background-size: 110%;   /* ajustá este % para achicar */
       background-position: center 30px;
