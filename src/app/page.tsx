@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <main className="bg-transparent relative">
       <img src="/fondoDePantalla.png" alt="" className="hidden md:block absolute inset-0 w-full h-full object-cover pointer-events-none -z-10" />
-      <img src="/fondoDePantallaMobile.png" alt="" className="md:hidden absolute w-full object-cover pointer-events-none -z-10" style={{ top: '60px', height: 'calc(100% - 60px)' }} />
+      <img src="/fondoDePantallaMobile.png" alt="" className="md:hidden absolute w-full pointer-events-none -z-10" style={{ top: '10px' }} />
       {/* Sección principal */}
       <div className="relative min-h-screen h-screen flex items-start md:items-center justify-center overflow-visible md:overflow-hidden md:py-0">
         <CodeCard />
