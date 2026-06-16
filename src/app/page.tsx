@@ -6,8 +6,13 @@ import CodeCard from '@/components/CodeCard';
 export default function Home() {
   return (
     <main className="bg-transparent relative">
+      <style>{`
+        .bg-mobile { top: 30px; }
+        @media (min-width: 375px) { .bg-mobile { top: 25px; } }
+        @media (min-width: 425px) { .bg-mobile { top: 10px; } }
+      `}</style>
       <img src="/fondoDePantalla.png" alt="" className="hidden md:block absolute inset-0 w-full h-full object-cover pointer-events-none -z-10" />
-      <img src="/fondoDePantallaMobile.png" alt="" className="md:hidden absolute w-full pointer-events-none -z-10" style={{ top: '10px' }} />
+      <img src="/fondoDePantallaMobile.png" alt="" className="bg-mobile md:hidden absolute w-full pointer-events-none -z-10" />
       {/* Sección principal */}
       <div className="relative min-h-screen h-screen flex items-start md:items-center justify-center overflow-visible md:overflow-hidden md:py-0">
         <CodeCard />
