@@ -34,9 +34,9 @@ export default function ContactoSection() {
     if (!file) return;
     const allowed = ['application/pdf', 'application/msword',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'image/jpeg', 'image/png', 'image/webp'];
+      'image/jpeg', 'image/webp'];
     if (!allowed.includes(file.type)) {
-      setArchivoError('Solo PDF, Word o imagen (JPG/PNG/WEBP)');
+      setArchivoError('Solo PDF, Word o imagen (JPG/WEBP)');
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
@@ -262,7 +262,7 @@ export default function ContactoSection() {
                     </button>
                   )}
                   <input type="file" className="hidden" onChange={handleArchivo}
-                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp" />
+                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.webp" />
                 </label>
                 {archivoError && <p className="text-red-400 text-xs mt-1">{archivoError}</p>}
               </div>

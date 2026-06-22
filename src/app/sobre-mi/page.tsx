@@ -21,7 +21,7 @@ export default async function Page() {
       <div
         className="bg-desktop hidden md:block absolute inset-0 w-full h-full -z-10"
         style={{
-          backgroundImage: 'url(/fondoDePantallaSobreMi.png)',
+          backgroundImage: 'url(/fondoDePantallaSobreMi.webp)',
           backgroundRepeat: 'no-repeat',
         }}
       />
@@ -47,7 +47,7 @@ export default async function Page() {
       <div
         className="bg-mobile md:hidden absolute top-0 left-0 w-full h-full -z-10"
         style={{
-          backgroundImage: 'url(/fondoDePantallaSobreMiMobile.png)',
+          backgroundImage: 'url(/fondoDePantallaSobreMiMobile.webp)',
           backgroundRepeat: 'no-repeat',
         }}
       />

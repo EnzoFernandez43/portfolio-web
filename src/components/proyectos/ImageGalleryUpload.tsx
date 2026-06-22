@@ -342,7 +342,7 @@ export default function ImageGalleryUpload({
           ref={fileInputRef}
           className="hidden"
           multiple
-          accept="image/jpeg,image/png,image/webp,video/mp4,video/webm"
+          accept="image/jpeg,image/webp,video/mp4,video/webm"
           onChange={handleFileSelect}
           disabled={disabled || isFull}
         />
